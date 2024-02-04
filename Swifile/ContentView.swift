@@ -1,16 +1,12 @@
-import SwiftUI
+//
+//  ContentView.swift
+//  Swifile
+//
+//  Created by Nguyen Bao on 04/02/2024.
+//  Views made by SpeedyFriend67.
+//
 
-@main
-struct FileManagerApp: App {
-    var body: some Scene {
-        WindowGroup {
-            NavigationView {
-                ContentView(folderURL: URL(fileURLWithPath: "/var/"), folderName: "Root")
-                    .navigationViewStyle(StackNavigationViewStyle()) // Prevent automatic navigation
-            }
-        }
-    }
-}
+import SwiftUI
 
 struct ContentView: View {
     @State private var contents: [ContentItem] = []
@@ -205,3 +201,9 @@ struct DeleteButton: View {
         }
     }
 }
+
+// lebao3105: lol it never works properly here
+// (used OCLP to get newer macOSes)
+//#Preview {
+//    ContentView(document: .constant(SwifileDocument()))
+//}
