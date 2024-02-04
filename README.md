@@ -12,16 +12,15 @@ Swifile App provides a user-friendly interface to browse, search, and manage fil
 - Toggle file size visibility
 - Sort files by name, size, or modification date
 - Search files by name
-- Open files in external applications
 - Delete files and folders
-- Share files with other apps
 ------------------------------------------------------
 - Planned future updates:
   - File sharing
   - File modifications
   - Uploading files
   - Recycling bin
-
+  - Open files in external applications
+  - Share files with other apps
 ## Installation
 
 1. Clone the repository:
