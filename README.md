@@ -57,8 +57,8 @@ open Swifile.xcodeproj
 ## Author & Helper
 
 Made by [speedyfriend67](https://github.com/speedyfriend67)
-NavigationView help by [AppinstalleriOS]
-(https://github.com/AppInstalleriOSGH)
+NavigationView help by [AppinstalleriOS](https://github.com/AppInstalleriOSGH)
+and more!
 
 ## License
 
