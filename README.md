@@ -32,7 +32,7 @@ git clone
 cd Swifile
 open Swifile.xcodeproj
 
-3. Build and run the project in Xcode.
+3. Build and run the project in Xcode. (i didn't build on Xcode , i used Swifty by sparkclechanJB but you can build your own ipa with the contentview.swift file. i wrote almost every code into it lol)
 
 ## Usage
 
