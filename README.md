@@ -52,7 +52,8 @@ open Swifile.xcodeproj
 
 ## Screenshots
 
-[Insert screenshots here]
+![IMG_7514](https://github.com/speedyfriend67/Swifile-FileManager/assets/82425907/3e4658fa-75a2-4bbd-9efa-6573342c9130)
+
 
 ## Author & Helper
 
