@@ -21,18 +21,14 @@ Swifile App provides a user-friendly interface to browse, search, and manage fil
   - Recycling bin
   - Open files in external applications
   - Share files with other apps
+
 ## Installation
 
-1. Clone the repository:
-
-git clone 
+1. Clone the repository.
 
 2. Open the project in Xcode:
 
-cd Swifile
-open Swifile.xcodeproj
-
-3. Build and run the project in Xcode. (i didn't build on Xcode , i used Swifty by sparkclechanJB but you can build your own ipa with the contentview.swift file. i wrote almost every code into it lol)
+3. Build and run the project in Xcode. (I didn't build on Xcode , i used Swifty by sparkclechanJB but you can build your own ipa with the contentview.swift file. i wrote almost every code into it lol)
 
 ## Usage
 
@@ -60,7 +56,7 @@ open Swifile.xcodeproj
 Made by [speedyfriend67](https://github.com/speedyfriend67)
 
 NavigationView help by [AppinstalleriOS](https://github.com/AppInstalleriOSGH)
-[Lebao3105](https://github.com/lebao3105)
+[lebao3105](https://github.com/lebao3105)
 and more!
 
 ## License
