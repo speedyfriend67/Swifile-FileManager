@@ -12,7 +12,7 @@ struct SwifileApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                ContentView(folderURL: URL(fileURLWithPath: "/var/"), folderName: "Root")
+                ContentView(folderURL: URL(fileURLWithPath: "/var/"))
                     .navigationViewStyle(StackNavigationViewStyle()) // Prevent automatic navigation
             }
         }
