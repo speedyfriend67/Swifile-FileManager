@@ -24,6 +24,9 @@ struct Main {
                     print("Missing PID To Kill!")
                     return
                 }
+            default: 
+                print("Invalid arguments")
+                return
             }
         } else {
             // Not being used as RootHelper
