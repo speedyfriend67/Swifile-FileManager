@@ -1,6 +1,10 @@
 import Foundation
 import Darwin
 
+@discardableResult func RootHelper(_ Arguments: [String]) -> Int {
+    return runCommand(Bundle.main.executablePath!, Arguments, 0)
+}
+
 // shell("whoami")/shell("whoami", false) run as mobile
 // shell("whoami", true) runs as root
 // shell just runs bash so only works while jailbroken
