@@ -13,20 +13,37 @@ struct Main {
         let Args = CommandLine.arguments
         let Argc = CommandLine.argc
         if Argc >= 2 {
-            // Your app is being used as RootHelper
-            // Here are some commands it can do
-            switch Args[1] {
-            case "kill":
-                if Argc >= 3 {
-                    kill(Int32(Args[2])!, SIGTERM)
-                    print("Killed PID \(Args[2])")
-                } else {
-                    print("Missing PID To Kill!")
+            do {
+                // Your app is being used as RootHelper
+                // Here are some commands it can do
+                switch Args[1] {
+                case "kill":
+                    if Argc >= 3 {       
+                        kill(Int32(Args[2])!, SIGTERM)
+                        print("Killed PID \(Args[2])")
+                    } else {
+                        print("Missing PID To Kill!")
+                        return
+                    }
+                // TODO: Make better
+                // Best I could come up with without reading from the piped output
+                case "ls":
+                    if Argc >= 4 {       
+                        let Contents = try FileManager.default.contentsOfDirectory(atPath: Args[2]) ?? []
+                        guard let ContentsJSONData = try? JSONEncoder().encode(Contents) else {
+                            return
+                        }
+                        FileManager.default.createFile(atPath: Args[3], contents: ContentsJSONData)
+                    } else {
+                        print("Missing arguments!")
+                        return
+                    }
+                default: 
+                    print("Invalid arguments")
                     return
                 }
-            default: 
-                print("Invalid arguments")
-                return
+            } catch {
+                print(error)
             }
         } else {
             // Not being used as RootHelper
