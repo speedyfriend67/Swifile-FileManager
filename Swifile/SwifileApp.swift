@@ -29,11 +29,8 @@ struct Main {
                 // Best I could come up with without reading from the piped output
                 case "ls":
                     if Argc >= 4 {       
-                        let Contents = try FileManager.default.contentsOfDirectory(atPath: Args[2]) ?? []
-                        guard let ContentsJSONData = try? JSONEncoder().encode(Contents) else {
-                            return
-                        }
-                        FileManager.default.createFile(atPath: Args[3], contents: ContentsJSONData)
+                        let Contents = try FileManager.default.contentsOfDirectory(atPath: Args[2])
+                        FileManager.default.createFile(atPath: Args[3], contents: Data(Contents.rawValue.utf8), attributes: [FileAttributeKey.ownerAccountName: "mobile"])
                     } else {
                         print("Missing arguments!")
                         return
