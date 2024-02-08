@@ -1,16 +1,9 @@
 import Foundation
 import Darwin
 
-// shell("whoami")/shell("whoami", false) run as mobile
-// shell("whoami", true) runs as root
-// shell just runs bash so only works while jailbroken
-@discardableResult func shell(_ command: String, _ Root: Bool = false) -> Int {
-    if let JBRoot = FindJBRoot() {
-        return runCommand("/usr/bin/bash", ["-c", command], Root ? 0 : 501, JBRoot)
-    } else {
-        //Not jailbroken?
-        return -1
-    }
+// Function to use the app as a root helper
+@discardableResult func RootHelper(_ Arguments: [String]) -> Int {
+    return runCommand(Bundle.main.executablePath!, Arguments, 0)
 }
 
 // Define C functions
@@ -41,27 +34,4 @@ func runCommand(_ command: String, _ args: [String], _ uid: uid_t, _ rootPath: S
     var status: Int32 = 0
     waitpid(pid, &status, 0)
     return Int(status)
-}
-
-func FindJBRoot() -> String? {
-    if FileManager.default.fileExists(atPath: "/usr/bin/bash") {
-        //Rootfull JB
-        return ""
-    } else if FileManager.default.fileExists(atPath: "/var/jb/usr/bin/bash") {
-        //Rootless JB
-        return "/var/jb"
-    } else {
-        //RootHide JB
-        do {
-            let ApplicationsPath = "/var/containers/Bundle/Application"
-            if let JBRoot = try FileManager.default.contentsOfDirectory(atPath: ApplicationsPath).filter({$0.hasPrefix(".jbroot")}).first {
-                return "\(ApplicationsPath)/\(JBRoot)"
-            } else {
-                return nil
-            }
-        } catch {
-            print(error)
-            return nil
-        }
-    }
 }
