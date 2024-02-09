@@ -10,7 +10,10 @@
 		852868042B6F99B900F81540 /* SwifileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852868032B6F99B800F81540 /* SwifileApp.swift */; };
 		852868082B6F99B900F81540 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852868072B6F99B900F81540 /* ContentView.swift */; };
 		8528680A2B6F99BE00F81540 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 852868092B6F99BE00F81540 /* Assets.xcassets */; };
-		85FC6D832B738EC800C7EE6B /* ItemActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC6D812B738EC800C7EE6B /* ItemActions.swift */; };
+		858146952B761A3400FA97CC /* SimpleToast in Frameworks */ = {isa = PBXBuildFile; productRef = 858146942B761A3400FA97CC /* SimpleToast */; };
+		85D049A92B74B984007323AB /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D049A82B74B983007323AB /* Shell.swift */; };
+		85D049AC2B74BBDC007323AB /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 85D049AA2B74BBDC007323AB /* Localizable.xcstrings */; };
+		85FC6D832B738EC800C7EE6B /* DirItemViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC6D812B738EC800C7EE6B /* DirItemViews.swift */; };
 		85FC6D842B738EC800C7EE6B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC6D822B738EC800C7EE6B /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -21,7 +24,9 @@
 		852868092B6F99BE00F81540 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8528680B2B6F99BE00F81540 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		854CBA152B70917B00A9025E /* Swifile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swifile.entitlements; sourceTree = "<group>"; };
-		85FC6D812B738EC800C7EE6B /* ItemActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemActions.swift; sourceTree = "<group>"; };
+		85D049A82B74B983007323AB /* Shell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
+		85D049AB2B74BBDC007323AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = Base; path = Base.lproj/Localizable.xcstrings; sourceTree = "<group>"; };
+		85FC6D812B738EC800C7EE6B /* DirItemViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirItemViews.swift; sourceTree = "<group>"; };
 		85FC6D822B738EC800C7EE6B /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -30,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				858146952B761A3400FA97CC /* SimpleToast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,10 +62,12 @@
 		852868022B6F99B800F81540 /* Swifile */ = {
 			isa = PBXGroup;
 			children = (
-				85FC6D812B738EC800C7EE6B /* ItemActions.swift */,
+				85FC6D812B738EC800C7EE6B /* DirItemViews.swift */,
 				85FC6D822B738EC800C7EE6B /* SettingsView.swift */,
 				852868032B6F99B800F81540 /* SwifileApp.swift */,
 				852868072B6F99B900F81540 /* ContentView.swift */,
+				85D049AA2B74BBDC007323AB /* Localizable.xcstrings */,
+				85D049A82B74B983007323AB /* Shell.swift */,
 				852868092B6F99BE00F81540 /* Assets.xcassets */,
 				8528680B2B6F99BE00F81540 /* Info.plist */,
 				854CBA152B70917B00A9025E /* Swifile.entitlements */,
@@ -83,6 +91,9 @@
 			dependencies = (
 			);
 			name = Swifile;
+			packageProductDependencies = (
+				858146942B761A3400FA97CC /* SimpleToast */,
+			);
 			productName = Swifile;
 			productReference = 852868002B6F99B800F81540 /* Swifile.app */;
 			productType = "com.apple.product-type.application";
@@ -112,6 +123,9 @@
 				vi,
 			);
 			mainGroup = 852867F72B6F99B800F81540;
+			packageReferences = (
+				858146932B761A3300FA97CC /* XCRemoteSwiftPackageReference "SimpleToast" */,
+			);
 			productRefGroup = 852868012B6F99B800F81540 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -126,6 +140,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85D049AC2B74BBDC007323AB /* Localizable.xcstrings in Resources */,
 				8528680A2B6F99BE00F81540 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,12 +154,24 @@
 			files = (
 				852868042B6F99B900F81540 /* SwifileApp.swift in Sources */,
 				85FC6D842B738EC800C7EE6B /* SettingsView.swift in Sources */,
+				85D049A92B74B984007323AB /* Shell.swift in Sources */,
 				852868082B6F99B900F81540 /* ContentView.swift in Sources */,
-				85FC6D832B738EC800C7EE6B /* ItemActions.swift in Sources */,
+				85FC6D832B738EC800C7EE6B /* DirItemViews.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		85D049AA2B74BBDC007323AB /* Localizable.xcstrings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				85D049AB2B74BBDC007323AB /* Base */,
+			);
+			name = Localizable.xcstrings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		852868102B6F99BE00F81540 /* Debug */ = {
@@ -266,6 +293,7 @@
 		852868132B6F99BE00F81540 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALTERNATE_OWNER = nguyenbao;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Swifile/Swifile.entitlements;
@@ -309,6 +337,7 @@
 		852868142B6F99BE00F81540 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALTERNATE_OWNER = nguyenbao;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Swifile/Swifile.entitlements;
@@ -371,6 +400,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		858146932B761A3300FA97CC /* XCRemoteSwiftPackageReference "SimpleToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sanzaru/SimpleToast.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		858146942B761A3400FA97CC /* SimpleToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 858146932B761A3300FA97CC /* XCRemoteSwiftPackageReference "SimpleToast" */;
+			productName = SimpleToast;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 852867F82B6F99B800F81540 /* Project object */;
 }
