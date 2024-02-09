@@ -24,11 +24,41 @@ Swifile App provides a user-friendly interface to browse, search, and manage fil
 
 ## Installation
 
-1. Clone the repository.
+Requires:
 
-2. Open the project in Xcode:
+* macOS with recent Xcode installations
+* [HomeBrew](https://brew.sh)
+* [Theos](https://theos.dev)
 
-3. Build and run the project in Xcode. (I didn't build on Xcode , i used Swifty by sparkclechanJB but you can build your own ipa with the contentview.swift file. i wrote almost every code into it lol)
+Your phone: iOS 15+ with TrollStore.
+
+Clone this repository. Run [ipabuild.sh](ipabuild.sh) and you will get a tipa after that.
+
+Send the file to your phone (probably on macOS just use AirDrop), install with TrollStore.
+
+Or you can setup Theos and run:
+
+* `make package` to make a deb
+* `make do` to make a deb and install it onto your phone
+* `make` to build the project
+
+> You will need to setup root user password on your phone first.
+> Open Filza -> open Zsh or Bash (or whatever commands that don't accept stdin - Standard Input on no argument run), run `passwd root`. Do what it tells you (be aware of the current keyboard region). Ignore any warnings if any, only care about errors.
+> If you want to use the deb file, find the lastest one in packages/ after building, fire it to your phone, open with whatever app you want.
+
+Look at Theos documentation for useful environment variables and options (you will need them).
+
+Profit!
+
+### Use with Swifty
+
+Swifty by SparkleChan is a way to build, make, run Swift projects (and ObjC later).
+
+This app is originally made in Swifty!
+
+Currently as this was made to be a Xcode project, no support made for Swifty for now.
+
+Also with tests we confirmed that this project has problem building with Swifty, and seems the fault is the compiler: Swift. The latest on Procursus is 5.7.x. More tests required.
 
 ## Usage
 
@@ -55,9 +85,11 @@ Swifile App provides a user-friendly interface to browse, search, and manage fil
 
 Made by [speedyfriend67](https://github.com/speedyfriend67)
 
-NavigationView help by [AppinstalleriOS](https://github.com/AppInstalleriOSGH)
-[lebao3105](https://github.com/lebao3105)
-and more!
+TIPA build script made with the help of [Geranium](https://github.com/c22dev/Geranium)
+
+Thanks to [AppinstalleriOS](https://github.com/AppInstalleriOSGH) and [lebao3105](https://github.com/lebao3105) for many great contributions!
+
+Thanks to TigiSoftware for their Filza - also ideas for this app!
 
 ## License
 
