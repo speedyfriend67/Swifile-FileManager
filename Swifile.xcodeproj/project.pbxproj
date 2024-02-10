@@ -10,7 +10,11 @@
 		852868042B6F99B900F81540 /* SwifileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852868032B6F99B800F81540 /* SwifileApp.swift */; };
 		852868082B6F99B900F81540 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852868072B6F99B900F81540 /* ContentView.swift */; };
 		8528680A2B6F99BE00F81540 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 852868092B6F99BE00F81540 /* Assets.xcassets */; };
-		8528680F2B6F99BE00F81540 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8528680E2B6F99BE00F81540 /* Preview Assets.xcassets */; };
+		858146952B761A3400FA97CC /* SimpleToast in Frameworks */ = {isa = PBXBuildFile; productRef = 858146942B761A3400FA97CC /* SimpleToast */; };
+		85D049A92B74B984007323AB /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D049A82B74B983007323AB /* Shell.swift */; };
+		85D049AC2B74BBDC007323AB /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 85D049AA2B74BBDC007323AB /* Localizable.xcstrings */; };
+		85FC6D832B738EC800C7EE6B /* DirItemViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC6D812B738EC800C7EE6B /* DirItemViews.swift */; };
+		85FC6D842B738EC800C7EE6B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85FC6D822B738EC800C7EE6B /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,8 +23,11 @@
 		852868072B6F99B900F81540 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		852868092B6F99BE00F81540 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8528680B2B6F99BE00F81540 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8528680C2B6F99BE00F81540 /* Swifile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swifile.entitlements; sourceTree = "<group>"; };
-		8528680E2B6F99BE00F81540 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		854CBA152B70917B00A9025E /* Swifile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swifile.entitlements; sourceTree = "<group>"; };
+		85D049A82B74B983007323AB /* Shell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
+		85D049AB2B74BBDC007323AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = Base; path = Base.lproj/Localizable.xcstrings; sourceTree = "<group>"; };
+		85FC6D812B738EC800C7EE6B /* DirItemViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirItemViews.swift; sourceTree = "<group>"; };
+		85FC6D822B738EC800C7EE6B /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				858146952B761A3400FA97CC /* SimpleToast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +49,7 @@
 				852868012B6F99B800F81540 /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		852868012B6F99B800F81540 /* Products */ = {
 			isa = PBXGroup;
@@ -53,22 +62,17 @@
 		852868022B6F99B800F81540 /* Swifile */ = {
 			isa = PBXGroup;
 			children = (
+				85FC6D812B738EC800C7EE6B /* DirItemViews.swift */,
+				85FC6D822B738EC800C7EE6B /* SettingsView.swift */,
 				852868032B6F99B800F81540 /* SwifileApp.swift */,
 				852868072B6F99B900F81540 /* ContentView.swift */,
+				85D049AA2B74BBDC007323AB /* Localizable.xcstrings */,
+				85D049A82B74B983007323AB /* Shell.swift */,
 				852868092B6F99BE00F81540 /* Assets.xcassets */,
 				8528680B2B6F99BE00F81540 /* Info.plist */,
-				8528680C2B6F99BE00F81540 /* Swifile.entitlements */,
-				8528680D2B6F99BE00F81540 /* Preview Content */,
+				854CBA152B70917B00A9025E /* Swifile.entitlements */,
 			);
 			path = Swifile;
-			sourceTree = "<group>";
-		};
-		8528680D2B6F99BE00F81540 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				8528680E2B6F99BE00F81540 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,6 +91,9 @@
 			dependencies = (
 			);
 			name = Swifile;
+			packageProductDependencies = (
+				858146942B761A3400FA97CC /* SimpleToast */,
+			);
 			productName = Swifile;
 			productReference = 852868002B6F99B800F81540 /* Swifile.app */;
 			productType = "com.apple.product-type.application";
@@ -113,8 +120,12 @@
 			knownRegions = (
 				en,
 				Base,
+				vi,
 			);
 			mainGroup = 852867F72B6F99B800F81540;
+			packageReferences = (
+				858146932B761A3300FA97CC /* XCRemoteSwiftPackageReference "SimpleToast" */,
+			);
 			productRefGroup = 852868012B6F99B800F81540 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -129,7 +140,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8528680F2B6F99BE00F81540 /* Preview Assets.xcassets in Resources */,
+				85D049AC2B74BBDC007323AB /* Localizable.xcstrings in Resources */,
 				8528680A2B6F99BE00F81540 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -142,11 +153,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				852868042B6F99B900F81540 /* SwifileApp.swift in Sources */,
+				85FC6D842B738EC800C7EE6B /* SettingsView.swift in Sources */,
+				85D049A92B74B984007323AB /* Shell.swift in Sources */,
 				852868082B6F99B900F81540 /* ContentView.swift in Sources */,
+				85FC6D832B738EC800C7EE6B /* DirItemViews.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		85D049AA2B74BBDC007323AB /* Localizable.xcstrings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				85D049AB2B74BBDC007323AB /* Base */,
+			);
+			name = Localizable.xcstrings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		852868102B6F99BE00F81540 /* Debug */ = {
@@ -201,6 +226,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -256,6 +282,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -266,12 +293,14 @@
 		852868132B6F99BE00F81540 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALTERNATE_OWNER = nguyenbao;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Swifile/Swifile.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Swifile/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = NPC698Y9P4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Swifile/Info.plist;
@@ -291,13 +320,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.speedyfriend67.Swifile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
+				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -307,12 +337,14 @@
 		852868142B6F99BE00F81540 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALTERNATE_OWNER = nguyenbao;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Swifile/Swifile.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Swifile/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = NPC698Y9P4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Swifile/Info.plist;
@@ -332,13 +364,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.speedyfriend67.Swifile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
+				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -367,6 +400,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		858146932B761A3300FA97CC /* XCRemoteSwiftPackageReference "SimpleToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sanzaru/SimpleToast.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		858146942B761A3400FA97CC /* SimpleToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 858146932B761A3300FA97CC /* XCRemoteSwiftPackageReference "SimpleToast" */;
+			productName = SimpleToast;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 852867F82B6F99B800F81540 /* Project object */;
 }

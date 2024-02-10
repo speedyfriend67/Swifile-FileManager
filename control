@@ -1,0 +1,9 @@
+Package: org.speedyfriend67.swifile
+Name: Swifile
+Version: 1.0
+Architecture: iphoneos-arm
+Description: A new file manager made with SwiftUI!
+Maintainer: Le Bao Nguyen <bao12345yocoo@gmail.com>
+Author: SpeedyFriend67
+Depends: firmware (>= 15.0)
+Section: Utilities
