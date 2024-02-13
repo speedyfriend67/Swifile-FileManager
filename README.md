@@ -43,7 +43,9 @@ Or you can setup Theos and run:
 * `make` to build the project
 
 > You will need to setup root user password on your phone first.
+
 > Open Filza -> open Zsh or Bash (or whatever commands that don't accept stdin - Standard Input on no argument run), run `passwd root`. Do what it tells you (be aware of the current keyboard region). Ignore any warnings if any, only care about errors.
+
 > If you want to use the deb file, find the lastest one in packages/ after building, fire it to your phone, open with whatever app you want.
 
 Look at Theos documentation for useful environment variables and options (you will need them).
@@ -62,8 +64,7 @@ Also with tests we confirmed that this project has problem building with Swifty,
 
 ## Usage
 
-- Upon launching the app, you will see the contents of the root directory.
-- Use the toggle switch in the settings to show or hide file sizes.
+- Upon launching the app, you will see a box asking you to enter a directory path you want to go.
 - Use the sorting options in the navigation bar to sort files.
 - Use the search bar to search for files by name.
 - Tap on a folder to navigate into it and view its contents.
@@ -81,7 +82,7 @@ Also with tests we confirmed that this project has problem building with Swifty,
 ![IMG_7514](https://github.com/speedyfriend67/Swifile-FileManager/assets/82425907/3e4658fa-75a2-4bbd-9efa-6573342c9130)
 
 
-## Author & Helper
+## Author & Helpers
 
 Made by [speedyfriend67](https://github.com/speedyfriend67)
 
