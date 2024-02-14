@@ -50,20 +50,40 @@ struct AboutPage: View {
 }
 
 struct SettingsView: View {
-	@State var skipHiddenFiles: Bool = true
+	@AppStorage("skipHiddenFiles") var skipHiddenFiles: Bool = true
+	@AppStorage("defaultPath") var defaultPath: String = "/var"
+	@AppStorage("sortBy") var sortBy: SortOption = .name
+	
 	@Binding var isPresented: Bool
 	
 	var body: some View {
 		NavigationView {
 			VStack {
-				List { // TODO: Load and save settings
+				List {
 					Toggle("Skip hidden files", isOn: $skipHiddenFiles)
-						.padding()
 					
-					NavigationLink {
-						AboutPage()
-					} label: {
-						Label("About this app", systemImage: "person.2.circle")
+					HStack {
+						Text("Default path")
+						TextField("", text: $defaultPath)
+					}
+					
+					HStack {
+						Text("Sort by")
+						
+						Picker("...", selection: $sortBy, content: {
+							ForEach(SortOption.allCases, id: \.self) { option in
+								Text(option.rawValue).tag(option)
+							}
+						})
+						.pickerStyle(MenuPickerStyle())
+					}
+					
+					Section("This application") {
+						NavigationLink {
+							AboutPage()
+						} label: {
+							Label("About this app", systemImage: "person.2.circle")
+						}
 					}
 				}
 			}

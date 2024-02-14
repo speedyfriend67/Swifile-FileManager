@@ -10,6 +10,7 @@
 		852868042B6F99B900F81540 /* SwifileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852868032B6F99B800F81540 /* SwifileApp.swift */; };
 		852868082B6F99B900F81540 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852868072B6F99B900F81540 /* ContentView.swift */; };
 		8528680A2B6F99BE00F81540 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 852868092B6F99BE00F81540 /* Assets.xcassets */; };
+		856548632B7C7CB50058A8F8 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856548622B7C7CB40058A8F8 /* File.swift */; };
 		858146952B761A3400FA97CC /* SimpleToast in Frameworks */ = {isa = PBXBuildFile; productRef = 858146942B761A3400FA97CC /* SimpleToast */; };
 		85D049A92B74B984007323AB /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D049A82B74B983007323AB /* Shell.swift */; };
 		85D049AC2B74BBDC007323AB /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 85D049AA2B74BBDC007323AB /* Localizable.xcstrings */; };
@@ -20,10 +21,11 @@
 /* Begin PBXFileReference section */
 		852868002B6F99B800F81540 /* Swifile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swifile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		852868032B6F99B800F81540 /* SwifileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwifileApp.swift; sourceTree = "<group>"; };
-		852868072B6F99B900F81540 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		852868072B6F99B900F81540 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		852868092B6F99BE00F81540 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8528680B2B6F99BE00F81540 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		854CBA152B70917B00A9025E /* Swifile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swifile.entitlements; sourceTree = "<group>"; };
+		856548622B7C7CB40058A8F8 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		85D049A82B74B983007323AB /* Shell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
 		85D049AB2B74BBDC007323AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = Base; path = Base.lproj/Localizable.xcstrings; sourceTree = "<group>"; };
 		85FC6D812B738EC800C7EE6B /* DirItemViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirItemViews.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				85FC6D812B738EC800C7EE6B /* DirItemViews.swift */,
+				856548622B7C7CB40058A8F8 /* File.swift */,
 				85FC6D822B738EC800C7EE6B /* SettingsView.swift */,
 				852868032B6F99B800F81540 /* SwifileApp.swift */,
 				852868072B6F99B900F81540 /* ContentView.swift */,
@@ -153,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				852868042B6F99B900F81540 /* SwifileApp.swift in Sources */,
+				856548632B7C7CB50058A8F8 /* File.swift in Sources */,
 				85FC6D842B738EC800C7EE6B /* SettingsView.swift in Sources */,
 				85D049A92B74B984007323AB /* Shell.swift in Sources */,
 				852868082B6F99B900F81540 /* ContentView.swift in Sources */,

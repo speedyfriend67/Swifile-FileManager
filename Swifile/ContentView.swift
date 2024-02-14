@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DirListView: View {
 	@State private var contents: [ContentItem] = []
-	@State private var sortBy: SortOption = .name
+	@AppStorage("sortBy") var sortBy: SortOption = .name
 	@State private var searchText: String = ""
 	@State private var skipHiddenFiles: Bool = false
 	
@@ -25,6 +25,8 @@ struct DirListView: View {
 
 	@State private var createType: Int = 0 // 1 = file, 2 = folder
 	@State private var targetCreate: String = ""
+	
+	@AppStorage("favourites") var favourites: [String] = []
 	
 	let folderURL: URL
 	let folderName: String
@@ -49,7 +51,11 @@ struct DirListView: View {
 				.padding(.vertical, 6)
 				.swipeActions(allowsFullSwipe: true) {
 					Button {
-						print("'Star' button clicked")
+						if favourites.contains(contentItem.url.path) == false {
+							favourites.append(contentItem.url.path)
+						} else {
+							favourites.removeAll { $0 == contentItem.url.path }
+						}
 					} label: {
 						Label("Star", systemImage: "star")
 					}
@@ -92,7 +98,7 @@ struct DirListView: View {
 			.toolbar {
 				ToolbarItem(placement: .navigationBarTrailing) {
 					HStack {
-						Picker("Sort by", selection: $sortBy, content: {
+						Picker("", selection: $sortBy, content: {
 							ForEach(SortOption.allCases, id: \.self) { option in
 								Text(option.rawValue).tag(option)
 							}
@@ -179,12 +185,12 @@ struct DirListView: View {
 	}
 	
 	private func deleteItem(at url: URL) {
-		let result: Int = shell("rm -rf \(url.path)")
+		let result: Int = RootHelper(["rm", "-rf", (url.path)])
 		if result != 0 {
 			if result == -1 {
 				errorString = "The device is not jailbroken!"
 			} else {
-				errorString = "Unable to remove: rm exited with code \(result)"
+				errorString = "Unable to remove: code \(result)"
 			}
 			gotErrors = true
 		} else {
@@ -252,67 +258,81 @@ enum SortOption: String, CaseIterable, Identifiable {
 		
         }
     }
+	
+	func sortingComparatorStr(_ str1: String, _ str2: String) -> Bool {
+		switch self {
+		case .name_reserve:
+			return str1.localizedCaseInsensitiveCompare(str2) == .orderedDescending
+		default:
+			return str1.localizedCaseInsensitiveCompare(str2) == .orderedAscending
+		}
+	}
 }
 
 struct ContentView: View {
-	@State private var input: String = "/var/"
+	@State private var input: String = (UserDefaults.standard.string(forKey: "defaultPath") ?? "/var")
 	@State private var settingsCalled: Bool = false
-	@State private var sortBy: SortOption = .name
 	
-	let colors = [
-		Color.yellow, Color.pink, Color.blue,
-		Color.purple, Color.teal
-	]
+	@AppStorage("homePageSortBy") var sortBy: SortOption = .name
+	@AppStorage("favourites") var favourites: [String] = []
+	@AppStorage("queueMove") var moveList: [String] = []
+	@AppStorage("queueCopy") var copyList: [String] = []
+	@AppStorage("queueCut") var cutList: [String] = []
 
-	init() {
-		UITableView.appearance().backgroundColor = .clear
-		UITableViewCell.appearance().backgroundColor = .clear
-	}
-
+	
 	var body: some View {
-		LinearGradient(gradient: Gradient(colors: colors),
-					   startPoint: .topLeading,
-					   endPoint: .bottomTrailing)
-			.edgesIgnoringSafeArea(.all)
-			.overlay(
-				List {
-					Section(header: Text("Favourites")) {
-				
-					}
-			
-					Section(header: Text("Queue")) {
-				
-					}
-			
-					TextField("", text: $input, prompt: Text("Where do you want to go today?"))
-			
-					NavigationLink {
-						DirListView(folderURL: URL(fileURLWithPath: input))
-					} label: {
-						Text("Go")
-					}
+		List {
+			Section(header: Text("Favourites").fontWeight(.bold)) {
+				ForEach(favourites.sorted(by: sortBy.sortingComparatorStr), id:\.self) {item in
+					Text(item)
 				}
-				.navigationBarTitle("Home")
-				.toolbar {
-					ToolbarItem(placement: .navigationBarTrailing) {
-						HStack {
-							Picker("Sort by", selection: $sortBy, content: {
-								ForEach(SortOption.allCases, id: \.self) { option in
-									Text(option.rawValue).tag(option)
-								}
-							})
-							.pickerStyle(MenuPickerStyle())
-					
-							Button("Settings", systemImage: "gear", action: { settingsCalled = true })
-								.labelStyle(.iconOnly)
+			}
+				
+			Section(header: Text("Move Queue").fontWeight(.bold)) {
+				ForEach(moveList, id:\.self) {item in
+					Text(item)
+				}
+			}
+			
+			Section(header: Text("Copy Queue").fontWeight(.bold)) {
+				ForEach(copyList, id:\.self) {item in
+					Text(item)
+				}
+			}
+				
+			Section(header: Text("Cut Queue").fontWeight(.bold)) {
+				ForEach(cutList, id:\.self) {item in
+					Text(item)
+				}
+			}
+	
+			TextField("", text: $input, prompt: Text("Where do you want to go today?"))
+	
+			NavigationLink {
+				DirListView(folderURL: URL(fileURLWithPath: input))
+			} label: {
+				Text("Go")
+			}
+		}
+		.navigationBarTitle("Home")
+		.toolbar {
+			ToolbarItem(placement: .navigationBarTrailing) {
+				HStack {
+					Picker("", selection: $sortBy, content: {
+						ForEach(SortOption.allCases, id: \.self) { option in
+							Text(option.rawValue).tag(option)
 						}
-					}
+					})
+					.pickerStyle(MenuPickerStyle())
+					
+					Button("Settings", systemImage: "gear", action: { settingsCalled = true })
+						.labelStyle(.iconOnly)
 				}
-				.sheet(isPresented: $settingsCalled) {
-					SettingsView(isPresented: $settingsCalled)
-						.navigationBarTitle("Settings")
-				}
-				.listRowBackground(Color.clear)
-			)
+			}
+		}
+		.sheet(isPresented: $settingsCalled) {
+			SettingsView(isPresented: $settingsCalled)
+				.navigationBarTitle("Settings")
+		}
 	}
 }
