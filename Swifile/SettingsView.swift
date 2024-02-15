@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct AboutPage: View {
 	// for developers/translators:
@@ -17,21 +18,15 @@ struct AboutPage: View {
     let Credits: [String] = ["lebao3105", "speedyfriend67", "AppInstalleriOSGH"].sorted()
     let Translators: [String] = [].sorted()
 	let shortBuild: String
-	let version: String
 	
 	init() {
 		let test1 = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String
-		let test2 = Bundle.main.infoDictionary!["CFBundleVersion"] as? String
 		shortBuild = test1 ?? "Unknown"
-		version = test2 ?? "Unknown"
 	}
 	
     var body: some View {
         List {
-            Section(header: Text("This app")) {
-				Text("Version: \(version)")
-				Text("Release version number: \(shortBuild)")
-            }
+            makeTitleWithSecondary("App version", shortBuild)
 
             Section(header: Text("Developers")) {
                 ForEach(Credits, id:\.self) { Name in
@@ -49,10 +44,18 @@ struct AboutPage: View {
     }
 }
 
+enum FileSizeOptions: Int, CaseIterable {
+	case MegaByte = 0
+	case GigaByte = 1
+	case KiloByte = 2
+}
+
 struct SettingsView: View {
 	@AppStorage("skipHiddenFiles") var skipHiddenFiles: Bool = true
 	@AppStorage("defaultPath") var defaultPath: String = "/var"
 	@AppStorage("sortBy") var sortBy: SortOption = .name
+	@AppStorage("useSize") var size: FileSizeOptions = .MegaByte
+	@AppStorage("allowNonNumbericSize") var nonNumbericSize: Bool = true
 	
 	@Binding var isPresented: Bool
 	
@@ -64,19 +67,23 @@ struct SettingsView: View {
 					
 					HStack {
 						Text("Default path")
+						Spacer()
 						TextField("", text: $defaultPath)
 					}
+											
+					Picker("Sort by", selection: $sortBy, content: {
+						ForEach(SortOption.allCases, id: \.self) { option in
+							Text(option.rawValue).tag(option)
+						}
+					})
 					
-					HStack {
-						Text("Sort by")
-						
-						Picker("...", selection: $sortBy, content: {
-							ForEach(SortOption.allCases, id: \.self) { option in
-								Text(option.rawValue).tag(option)
-							}
-						})
-						.pickerStyle(MenuPickerStyle())
-					}
+					Picker("File size", selection: $size, content: {
+						ForEach(FileSizeOptions.allCases, id:\.self) { option in
+							Text(String(describing: option)).tag(option)
+						}
+					})
+					
+					Toggle("Allow non-numberic file size", isOn: $nonNumbericSize)
 					
 					Section("This application") {
 						NavigationLink {

@@ -9,33 +9,28 @@
 import SwiftUI
 import SimpleToast
 
-enum QueueActions: Encodable, Decodable {
-	case move
-	case copy
-	case cut
-}
-
 struct DirListItemActions: View {
 	@Environment(\.presentationMode) var presentationMode
 
 	@State private var amIAbleToToast: Bool = false
 	@State private var toastMessage: String = "No message provided (should not happend)"
-
+	@State private var goToProperties: Bool = false
+	
+	@State private var item: ContentItem
 	@Binding var isPresented: Bool
 	@Binding var contents: [ContentItem]
 	
 	@AppStorage("queueMove") var moveList: [String] = []
 	@AppStorage("queueCopy") var copyList: [String] = []
 	@AppStorage("queueCut") var cutList: [String] = []
-
-	private let toastOptions = SimpleToastOptions(hideAfter: 5)
-	private let urlPath: URL
-
-	init(itemURL: URL, isPresented: Binding<Bool>, contents: Binding<[ContentItem]>) {
-		self.urlPath = itemURL
+	
+	init(item: ContentItem, isPresented: Binding<Bool>, contents: Binding<[ContentItem]>) {
+		self._item = State(initialValue: item)
 		self._isPresented = isPresented
 		self._contents = contents
 	}
+
+	private let toastOptions = SimpleToastOptions(hideAfter: 5, modifierType: .skew)
 
 	var body: some View {
 		NavigationView {
@@ -43,14 +38,14 @@ struct DirListItemActions: View {
 				List {
 					Button {
 						withAnimation {
-							if copyList.contains(urlPath.path) {
-								copyList.removeAll { $0 == urlPath.path }
+							if copyList.contains(item.url.path) {
+								copyList.removeAll { $0 == item.url.path }
 								toastMessage = "Removed from Queue"
 							} else {
 								toastMessage = "Added to Queue"
-								copyList.append(urlPath.path)
-								moveList.removeAll { $0 == urlPath.path }
-								cutList.removeAll { $0 == urlPath.path }
+								copyList.append(item.url.path)
+								moveList.removeAll { $0 == item.url.path }
+								cutList.removeAll { $0 == item.url.path }
 							}
 							amIAbleToToast.toggle()
 						}
@@ -60,16 +55,16 @@ struct DirListItemActions: View {
 					
 					Button {
 						withAnimation {
-							if cutList.contains(urlPath.path) {
-								cutList.removeAll { $0 == urlPath.path }
+							if cutList.contains(item.url.path) {
+								cutList.removeAll { $0 == item.url.path }
 								toastMessage = "Removed from Queue"
 							} else {
-								copyList.removeAll { $0 == urlPath.path }
-								moveList.removeAll { $0 == urlPath.path }
-								cutList.append(urlPath.path)
+								copyList.removeAll { $0 == item.url.path }
+								moveList.removeAll { $0 == item.url.path }
+								cutList.append(item.url.path)
 								toastMessage = "Added to Queue"
 							}
-							contents.removeAll { $0.url == urlPath }
+							contents.removeAll { $0.id == item.id }
 							amIAbleToToast.toggle()
 						}
 					} label: {
@@ -84,15 +79,15 @@ struct DirListItemActions: View {
 					
 					Button {
 						withAnimation {
-							if moveList.contains(urlPath.path) {
-								moveList.removeAll { $0 == urlPath.path }
+							if moveList.contains(item.url.path) {
+								moveList.removeAll { $0 == item.url.path }
 								toastMessage = "Removed from Queue"
 							} else {
-								moveList.append(urlPath.path)
-								copyList.removeAll { $0 == urlPath.path }
-								cutList.removeAll { $0 == urlPath.path }
+								moveList.append(item.url.path)
+								copyList.removeAll { $0 == item.url.path }
+								cutList.removeAll { $0 == item.url.path }
 								toastMessage = "Added to Queue"
-							}							
+							}
 							amIAbleToToast.toggle()
 						}
 					} label: {
@@ -100,7 +95,7 @@ struct DirListItemActions: View {
 					}
 					
 					Button {
-						
+						goToProperties = true // make a sheet, or navigate?
 					} label: {
 						Label("View properties", systemImage: "doc.badge.gearshape")
 					}
@@ -116,13 +111,60 @@ struct DirListItemActions: View {
 				}
 			}
 		}
+		.ignoresSafeArea(.all)
 		.simpleToast(isPresented: $amIAbleToToast, options: toastOptions) {
-		   Label(toastMessage, systemImage: "info.circle")
-			   .padding()
-			   .background(Color.blue.opacity(0.8))
-			   .foregroundColor(Color.white)
-			   .cornerRadius(50)
-			   .padding(.top)
-	   }
+			Label(toastMessage, systemImage: "info.circle")
+				.padding()
+				.background(Color.blue.opacity(0.8))
+				.foregroundColor(Color.white)
+				.cornerRadius(50)
+				.padding(.top)
+		}
+		.sheet(isPresented: $goToProperties) {
+			DirItemProperties(item: $item, isPresented: $goToProperties)
+		}
+	}
+}
+
+struct DirItemProperties: View {
+	@Environment(\.presentationMode) var presentationMode
+	
+	@State private var amIAbleToToast: Bool = false
+	@State private var toastMessage: String = ""
+	
+	@Binding var item: ContentItem
+	@Binding var isPresented: Bool
+	
+	private let toastOptions = SimpleToastOptions(hideAfter: 5, modifierType: .skew)
+	
+	var body: some View {
+		NavigationView {
+			VStack {
+				List {
+					makeTitleWithSecondary("Full path", item.url.path)
+					makeTitleWithSecondary("Is a folder?", String(item.isFolder))
+					makeTitleWithSecondary("Is a symbolic link?", String(item.isSymbolicLink))
+					makeTitleWithSecondary("Last modified", item.modificationDate.formatted())
+					makeTitleWithSecondary("Size", String(item.fileSizeFormatted))
+				}
+			}
+			.navigationBarTitle("Properties")
+			.toolbar {
+				ToolbarItem(placement: .navigationBarTrailing) {
+					Button("Close") {
+						isPresented = false
+						presentationMode.wrappedValue.dismiss()
+					}
+				}
+			}
+		}
+		.simpleToast(isPresented: $amIAbleToToast, options: toastOptions) {
+			Label(toastMessage, systemImage: "info.circle")
+				.padding()
+				.background(Color.blue.opacity(0.8))
+				.foregroundColor(Color.white)
+				.cornerRadius(50)
+				.padding(.top)
+		}
 	}
 }

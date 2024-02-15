@@ -8,6 +8,19 @@
 
 import SwiftUI
 
+@ViewBuilder
+func makeTitleWithSecondary(_ mainTitle:String, _ secondaryTitle: String) -> some View {
+	HStack {
+		Text(mainTitle)
+			.padding(.vertical, 6)
+		Spacer()
+		Text(secondaryTitle)
+			.font(.subheadline)
+			.foregroundColor(.secondary)
+			.padding(.vertical, 6)
+	}
+}
+
 struct DirListView: View {
 	@State private var contents: [ContentItem] = []
 	@AppStorage("sortBy") var sortBy: SortOption = .name
@@ -43,7 +56,7 @@ struct DirListView: View {
 					if contentItem.isFolder || contentItem.isSymbolicLink {
 						DirListView(folderURL: contentItem.url)
 					} else {
-						DirListItemActions(itemURL: contentItem.url, isPresented: $callActions, contents: $contents)
+						DirListItemActions(item: contentItem, isPresented: $callActions, contents: $contents)
 					}
 				} label: {
 					makeListEntryLabel(item: contentItem)
@@ -90,7 +103,7 @@ struct DirListView: View {
 				})
 				// actions
 				.sheet(isPresented: $callActions, content: {
-					DirListItemActions(itemURL: contentItem.url, isPresented: $callActions, contents: $contents)
+					DirListItemActions(item: contentItem, isPresented: $callActions, contents: $contents)
 				})
 			}
 			// navigation
@@ -214,11 +227,25 @@ struct ContentItem: Identifiable {
     let isSymbolicLink: Bool
     let fileSize: Int64
     let modificationDate: Date
+	
+	@AppStorage("useSize") var size: FileSizeOptions = .MegaByte
+	@AppStorage("allowNonNumbericSize") var nonNumbericSize: Bool = true
     
     var fileSizeFormatted: String {
+		let usedUnit: ByteCountFormatter.Units
+		
+		switch size {
+		case .MegaByte:
+			usedUnit = .useMB
+		case .GigaByte:
+			usedUnit = .useGB
+		case .KiloByte:
+			usedUnit = .useKB
+		}
         let byteCountFormatter = ByteCountFormatter()
-        byteCountFormatter.allowedUnits = [.useMB, .useGB, .useKB]
+        byteCountFormatter.allowedUnits = [usedUnit]
         byteCountFormatter.countStyle = .file
+		byteCountFormatter.allowsNonnumericFormatting = nonNumbericSize
 
         // If the file size is less than 1000 bytes, display it in bytes
         if fileSize < 1000 {
@@ -282,30 +309,32 @@ struct ContentView: View {
 	
 	var body: some View {
 		List {
-			Section(header: Text("Favourites").fontWeight(.bold)) {
-				ForEach(favourites.sorted(by: sortBy.sortingComparatorStr), id:\.self) {item in
-					Text(item)
-				}
-			}
-				
-			Section(header: Text("Move Queue").fontWeight(.bold)) {
-				ForEach(moveList, id:\.self) {item in
-					Text(item)
-				}
-			}
+			Text("Favourites").font(.title3.bold())
 			
-			Section(header: Text("Copy Queue").fontWeight(.bold)) {
-				ForEach(copyList, id:\.self) {item in
-					Text(item)
-				}
+			ForEach(favourites.sorted(by: sortBy.sortingComparatorStr), id:\.self) {item in
+				Text(item)
 			}
-				
-			Section(header: Text("Cut Queue").fontWeight(.bold)) {
-				ForEach(cutList, id:\.self) {item in
-					Text(item)
-				}
+			.onDelete { favourites.remove(atOffsets: $0) }
+			
+			Text("Move Queue").font(.title3.bold())
+			ForEach(moveList.sorted(by: sortBy.sortingComparatorStr), id:\.self) {item in
+				Text(item)
 			}
-	
+			.onDelete { moveList.remove(atOffsets: $0) }
+			
+			Text("Copy Queue").font(.title3.bold())
+			ForEach(copyList.sorted(by: sortBy.sortingComparatorStr), id:\.self) {item in
+				Text(item)
+			}
+			.onDelete { copyList.remove(atOffsets: $0) }
+			
+			Text("Cut Queue").font(.title3.bold())
+					
+			ForEach(cutList.sorted(by: sortBy.sortingComparatorStr), id:\.self) {item in
+				Text(item)
+			}
+			.onDelete { cutList.remove(atOffsets: $0) }
+					
 			TextField("", text: $input, prompt: Text("Where do you want to go today?"))
 	
 			NavigationLink {
@@ -327,6 +356,8 @@ struct ContentView: View {
 					
 					Button("Settings", systemImage: "gear", action: { settingsCalled = true })
 						.labelStyle(.iconOnly)
+					
+					EditButton()
 				}
 			}
 		}
