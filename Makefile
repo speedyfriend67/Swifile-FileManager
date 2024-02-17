@@ -6,4 +6,8 @@ include $(THEOS)/makefiles/common.mk
 XCODEPROJ_NAME = Swifile
 Swifile_CODESIGN_FLAGS = -SSwifile/Swifile.entitlements
 
+all::
+	make -C "RootHelper (Pascal)"
+	cp "RootHelper (Pascal)/RootHelper" .theos/obj/debug/install_Swifile/RootHelper
+
 include $(THEOS_MAKE_PATH)/xcodeproj.mk

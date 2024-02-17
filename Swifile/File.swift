@@ -1,20 +1,16 @@
 import Foundation
 
-func contentsOfDirectory(_ Path: String) -> [String] {
-    do {
-        // Random path to store contents JSON
-        let JSONPath = "\(NSHomeDirectory())/tmp/\(UUID().uuidString)"
-        // Write contents of directory JSON to JSONPath
-        RootHelper(["ls", Path, JSONPath])
-        // Read contents of JSONPath
-        let Contents: [String] = Array(rawValue: try String(contentsOfFile: JSONPath)) ?? []
-        // Remove JSONPath
-        try FileManager.default.removeItem(atPath: JSONPath)
-        return Contents
-    } catch {
-        print(error)
-        return []
+// TODO: Move + more cases
+enum SwifileError: Error {
+    case RootHelperError(String)
+}
+
+func contentsOfDirectory(_ Path: String) throws -> [String] {
+    let commandOutput = runCommand(Bundle.main.bundlePath + "/RootHelper", ["l", Path], 501)
+    if commandOutput.output == "" || commandOutput.status != 0 {
+        throw SwifileError.RootHelperError("RootHelper run returned non-zero code: \(commandOutput.status)")
     }
+    return commandOutput.output.components(separatedBy: "\n")
 }
 
 extension Array: RawRepresentable where Element: Codable {
