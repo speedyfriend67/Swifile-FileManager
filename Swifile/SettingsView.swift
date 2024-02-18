@@ -29,8 +29,19 @@ struct AboutPage: View {
 		var test_gid = runHelper(["gid"])
 		var test_guid = runHelper(["guid"])
 
-		gid = test_gid.status == 0 ? test_gid.output.removeLast() : "GID: ??"
-		uid = test_guid.status == 0 ? test_guid.output.removeLast() : "UID: ??"
+		if test_gid.status == 0 {
+			test_gid.output.removeLast()
+			gid = test_gid.output
+		} else {
+			gid = "GID: ??"
+		}
+
+		if test_guid.status == 0 {
+			test_guid.output.removeLast()
+			uid = test_guid.output
+		} else {
+			uid = "UID: ??"
+		}
 	}
 	
     var body: some View {
