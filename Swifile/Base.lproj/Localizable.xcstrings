@@ -1,9 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "" : {
-
-    },
     "About" : {
       "localizations" : {
         "vi" : {
@@ -239,6 +236,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Có"
+          }
+        }
+      }
+    },
+    "RootHelper processes file and folder operations.": {
+      "localizations": {
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "RootHelper processes file and folder operations."
           }
         }
       }

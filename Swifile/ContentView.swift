@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import UIKit
 import Foundation
 
 @ViewBuilder
@@ -22,6 +23,30 @@ func makeTitleWithSecondary(_ mainTitle:String, _ secondaryTitle: String) -> som
 	}
 }
 
+class LogViewController: UIViewController {
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		let textview = UITextView()
+		textview.isEditable = false
+		textview.isSelectable = true
+		textview.textAlignment = NSTextAlignment.left
+		textview.translatesAutoresizingMaskIntoConstraints = true
+		view.addSubview(textview)
+	}
+}
+
+struct LogView: UIViewControllerRepresentable {
+	typealias UIViewControllerType = LogViewController
+
+    func makeUIViewController(context: Context) -> LogViewController {
+        LogViewController()
+    }
+
+    func updateUIViewController(_ uiViewController: LogViewController, context: Context) {
+       // Update the ViewController here
+    }
+}
+
 struct DirListView: View {
 	@State private var contents: [ContentItem] = []
 	@State private var searchText: String = ""
@@ -32,6 +57,7 @@ struct DirListView: View {
 	
 	@State private var settingsCalled: Bool = false
 	@State private var newItemCalled: Bool = false
+	@State private var callFavourites: Bool = false
 	@State private var callActions: Bool = false
 	@State private var callCreateDialog: Bool = false
 	@State private var deleteConfirm: Bool = false
@@ -58,12 +84,14 @@ struct DirListView: View {
 					if contentItem.isFolder || contentItem.isSymbolicLink {
 						DirListView(folderURL: URL(fileURLWithPath: contentItem.realPath))
 					} else {
-						DirListItemActions(item: contentItem, isPresented: $callActions, contents: $contents)
+						Text("Hmm, this feature is not implemented.")
 					}
 				} label: {
 					makeListEntryLabel(item: contentItem)
 				}
+
 				.padding(.vertical, 6)
+
 				.swipeActions(allowsFullSwipe: true) {
 					Button {
 						if favourites.contains(contentItem.url.path) == false {
@@ -83,12 +111,14 @@ struct DirListView: View {
 					}
 					.tint(.indigo)
 					
-					Button(role: .destructive) {
+					Button {
 						deleteConfirm = true
 					} label: {
 						Label("Delete", systemImage: "trash")
 					}
+					.tint(.red)
 				}
+
 				// delete confirmation
 				.alert(isPresented: $deleteConfirm, content: {
 					Alert(
@@ -103,6 +133,7 @@ struct DirListView: View {
 						})
 					)
 				})
+
 				// actions
 				.sheet(isPresented: $callActions, content: {
 					DirListItemActions(item: contentItem, isPresented: $callActions, contents: $contents)
@@ -111,7 +142,7 @@ struct DirListView: View {
 			// navigation
 			.navigationBarTitle(folderURL.path)
 			.toolbar {
-				ToolbarItem(placement: .navigationBarTrailing) {
+				ToolbarItem(placement: .topBarTrailing) {
 					HStack {
 						Picker("", selection: $sortBy, content: {
 							ForEach(SortOption.allCases, id: \.self) { option in
@@ -119,24 +150,38 @@ struct DirListView: View {
 							}
 						})
 						.pickerStyle(MenuPickerStyle())
+						.labelStyle(.iconOnly)
 						
-						Button("Add", systemImage: "doc.badge.plus", action: { newItemCalled = true })
+						Button("", systemImage: "doc.badge.plus", action: { newItemCalled = true })
 							.labelStyle(.iconOnly)
 						
-						Button("Settings", systemImage: "gear", action: { settingsCalled = true })
+						Button("", systemImage: "gear", action: { settingsCalled = true })
 							.labelStyle(.iconOnly)
 					}
 				}
+
+				ToolbarItem(placement: .bottomBar) {
+					HStack {
+						Button("Queue", action: {}) // View not implemented
+						Button("Favourites", action: { callFavourites = true }) // View not implemented
+						Button("Refresh", action: { loadContents() })
+					}
+				}
 			}
+
 			// search bar
 			.searchable(text: $searchText, prompt: Text("Find for an item"))
-			// (re)load contents on show/reload
+
+			// (re)load contents on show
 			.onAppear {
 				loadContents()
 			}
-			.refreshable {
-				loadContents()
-			}
+
+			// Too buggy and even appears on sheets
+			// .refreshable {
+			// 	loadContents()
+			// }
+
 			// create file/folder sheets
 			.actionSheet(isPresented: $newItemCalled) {
 				ActionSheet(
@@ -148,6 +193,7 @@ struct DirListView: View {
 					]
 				)
 			}
+
 			// error alert
 			.alert(isPresented: $gotErrors, content: {
 				Alert(
@@ -159,15 +205,25 @@ struct DirListView: View {
 					}
 				)
 			})
+
 			// settings view
 			.sheet(isPresented: $settingsCalled, content: {
 				SettingsView(isPresented: $settingsCalled)
 			})
+
+			.sheet(isPresented: $callFavourites, content: {
+				List(favourites.sorted(by: sortBy.sortingComparatorStr), id:\.self) { favourite in
+					Text(favourite)
+				}
+			})
+
 		} else {
 			Text("An error occured!")
 				.font(.title2.bold())
 			Text(errorString)
 				.font(.title3)
+
+			LogView()
 		}
 	}
 	
@@ -181,7 +237,7 @@ struct DirListView: View {
 	}
 
 	private func loadContents() {
-		var items = (try? contentsOfDirectory(folderURL.path)) ?? [] // not the right way to do, since I want to catch the error
+		var items = contentsOfDirectory(folderURL.path)
 		if skipHiddenFiles {
 			items.removeAll { $0.hasPrefix(".") }
 		}
@@ -200,9 +256,9 @@ struct DirListView: View {
 	
 	private func deleteItem(at url: URL) {
 		do {
-			runCommand(Bundle.main.bundlePath + "/RootHelper", ["d", url.path], 501)
+			runCommand(Bundle.main.bundlePath + "/RootHelper", ["d", url.path], 0)
 			withAnimation {
-				contents.removeAll { $0.url == url}
+				contents.removeAll { $0.url == url }
 			}
 		} catch {
 			errorString = "Unable to remove: \(error.localizedDescription)"

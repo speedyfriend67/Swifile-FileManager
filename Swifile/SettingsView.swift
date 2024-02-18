@@ -17,16 +17,29 @@ struct AboutPage: View {
 	// for translators: your user name + flag of the country you translate this app to
     let Credits: [String] = ["lebao3105", "speedyfriend67", "AppInstalleriOSGH"].sorted()
     let Translators: [String] = [].sorted()
+
 	let shortBuild: String
+	let gid: String
+	let uid: String
 	
 	init() {
 		let test1 = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String
 		shortBuild = test1 ?? "Unknown"
+
+		var test_gid = runHelper(["gid"])
+		var test_guid = runHelper(["guid"])
+
+		gid = test_gid.status == 0 ? test_gid.output.removeLast() : "GID: ??"
+		uid = test_guid.status == 0 ? test_guid.output.removeLast() : "UID: ??"
 	}
 	
     var body: some View {
         List {
             makeTitleWithSecondary("App version", shortBuild)
+			
+			Section(footer: Text("RootHelper processes file and folder operations. GID and UID should be 0.")) {
+				makeTitleWithSecondary("RootHelper process", gid + ", " + uid)
+			}
 
             Section(header: Text("Developers")) {
                 ForEach(Credits, id:\.self) { Name in

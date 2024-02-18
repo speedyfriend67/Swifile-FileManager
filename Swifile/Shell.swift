@@ -1,5 +1,21 @@
+//
+// Shell.swift
+// Swifile
+//
+// Created by AppInstalleriOS on 17/02/2024.
+//
+//
+
 import Foundation
 import Darwin
+
+/// Convenient function to run root helper.
+/// 
+/// - Parameter args: Arguments to be passed
+/// - Returns: Command output and return code
+func runHelper(_ args: [String]) -> (output: String, status: Int) {
+    return runCommand(Bundle.main.bundlePath + "/RootHelper", args, 0)
+}
 
 // Define C functions
 @_silgen_name("posix_spawnattr_set_persona_np")
@@ -9,6 +25,14 @@ func posix_spawnattr_set_persona_uid_np(_ attr: UnsafeMutablePointer<posix_spawn
 @_silgen_name("posix_spawnattr_set_persona_gid_np")
 func posix_spawnattr_set_persona_gid_np(_ attr: UnsafeMutablePointer<posix_spawnattr_t?>, _ persona_id: uid_t) -> Int32
 
+/// Runs a command and gets its output.
+/// 
+/// - Parameters:
+///   - command: Full path of program to be ran
+///   - args: Arguments for command
+///   - uid: The user id you want the program use
+///   - rootPath: The jailbreak root file system path (blank by default for rootful)
+/// - Returns: Command run output and return code
 func runCommand(_ command: String, _ args: [String], _ uid: uid_t, _ rootPath: String = "") -> (output: String, status: Int) {
     var pipestdout: [Int32] = [0, 0]
     var pipestderr: [Int32] = [0, 0]
