@@ -9,6 +9,8 @@ var
 procedure Help;
 begin
     writeln('Usage: RootHelper [action] [path]');
+    writeln('Proundly to be written in Pascal. Write once, run everywhere!');
+    writeln;
     writeln('Available [action]s:');
     writeln('del / d [path]                             : Deletes [path]');
     writeln('list / l [path]                            : Shows the content [path]');
@@ -16,11 +18,14 @@ begin
     writeln('createdir / md [path]                      : Creates [path] as a directory');
     writeln('move / mv [path, list must not be odd]     : Moves files (FILES only for now)');
     writeln('copy / cp [path, list must not be odd]     : Copies files (FILES only)');
+    writeln('getuid / guid                              : Gets and shows the current UID');
+    writeln('getgid / gid                               : Gets and shows the current GID');
     writeln;
     write('[path] can in any number of absolute paths that the program and system can handle,');
     writeln(' in any kind: file and folder.');
+    writeln;
     writeln('This is MEANT to be used INTERNALLY by Swifile - a File manager.');
-    writeln('Any damages to the file system by you using this? You''re the one who is responsible for it. Not us.');
+    writeln('Any damages to the file system by you using this? You''re the one who is responsible for it, not us.');
     writeln('This project is a part of Swifile, licensed under the MIT license.');
 end;
 
@@ -51,11 +56,6 @@ begin
 end;
 
 begin
-    FpSetuid(0);
-    FpSetgid(0);
-
-    // writeln(Format('UID: %d', [FpGetuid()]));
-    // writeln(Format('GID: %d', [FpGetgid()]));
 
     if ParamCount = 0 then begin Help; halt(0); end
     else
@@ -66,6 +66,8 @@ begin
             'createdir', 'md': for i := 2 to ParamCount do CreateDir(ParamStr(i));
             'move', 'mv': MoveItems;
             'copy', 'cp': CopyItems;
+            'getuid', 'guid': begin writeln(Format('UID: %d', [FpGetuid()])); halt(0); end;
+            'getgid', 'gid': begin writeln(Format('GID: %d', [FpGetgid()])); halt(0); end;
         else
             Help;
             writeln(Format('%s: Unknown action', [ParamStr(1)]));

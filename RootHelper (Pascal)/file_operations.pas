@@ -4,7 +4,7 @@ unit file_operations;
 interface
 
 uses
-    classes, strutils, sysutils;
+    baseunix, classes, strutils, sysutils;
 
 procedure contentsOfDirectory(path: string);
 procedure removeItem(path: string);
@@ -64,6 +64,7 @@ begin
     ReWrite(tfOut);
     write(tfOut, '');
     CloseFile(tfOut);
+    FpChown(path, 501, 501); // sets the owner to mobile. Errors not handled.
 end;
 
 procedure copyFile(fromPath, toPath: string);
