@@ -56,7 +56,7 @@ Profit!
 
 Swifty by SparkleChan is a way to build, make, run Swift projects (and ObjC later).
 
-This app is originally made in Swifty(SparkCode) by spar!
+This app is originally made in Swifty(SparkCode) by SparkleChan!
 
 Currently as this was made to be a Xcode project, no support made for Swifty(SparkCode) for now.
 
