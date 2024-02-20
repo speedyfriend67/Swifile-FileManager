@@ -34,7 +34,7 @@ Your phone: iOS 15+ with TrollStore.
 
 Clone this repository. Run [ipabuild.sh](ipabuild.sh) and you will get a tipa after that.
 
-Send the file to your phone (probably on macOS just use AirDrop), install with TrollStore.
+Send the file to your phone (probably on macOS just use AirDrop), install with TrollStore(1 or 2).
 
 Or you can setup Theos and run:
 
@@ -56,9 +56,9 @@ Profit!
 
 Swifty by SparkleChan is a way to build, make, run Swift projects (and ObjC later).
 
-This app is originally made in Swifty!
+This app is originally made in Swifty(SparkCode) by spar!
 
-Currently as this was made to be a Xcode project, no support made for Swifty for now.
+Currently as this was made to be a Xcode project, no support made for Swifty(SparkCode) for now.
 
 Also with tests we confirmed that this project has problem building with Swifty, and seems the fault is the compiler: Swift. The latest on Procursus is 5.7.x. More tests required.
 
