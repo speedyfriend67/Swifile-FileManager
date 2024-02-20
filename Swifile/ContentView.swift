@@ -257,6 +257,7 @@ struct ContentItem: Identifiable {
     }
 }
 
+//sorting methods
 enum SortOption: String, CaseIterable, Identifiable {
     case name = "Alphabet"
     case size = "Size"
