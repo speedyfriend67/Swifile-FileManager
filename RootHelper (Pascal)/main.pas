@@ -61,7 +61,7 @@ begin
     else
         case ParamStr(1) of
             'del', 'd': for i := 2 to ParamCount do removeItem(ParamStr(i));
-            'list', 'l': for i := 2 to ParamCount do contentsOfDirectory(ParamStr(i));
+            'list', 'l': for i := 2 to ParamCount do begin contentsOfDirectory(ParamStr(i)); writeln; end;
             'create', 'c': for i := 2 to ParamCount do createItem(ParamStr(i));
             'createdir', 'md': for i := 2 to ParamCount do CreateDir(ParamStr(i));
             'move', 'mv': MoveItems;
