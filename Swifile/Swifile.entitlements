@@ -4,7 +4,10 @@
 <dict>
     <key>com.apple.security.no-container</key>
     <true/>
-    <!-- Allow us to run binaries -->
+    <key>com.apple.security.app-sandbox</key>
+    <false/>
+    <key>com.apple.private.skip-library-validation</key>
+    <true/>
     <key>platform-application</key>
     <true/>
     <key>com.apple.private.persona-mgmt</key>

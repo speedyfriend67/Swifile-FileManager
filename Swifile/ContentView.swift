@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import UIKit
+import Foundation
 
 @ViewBuilder
 func makeTitleWithSecondary(_ mainTitle:String, _ secondaryTitle: String) -> some View {
@@ -21,9 +23,32 @@ func makeTitleWithSecondary(_ mainTitle:String, _ secondaryTitle: String) -> som
 	}
 }
 
+class LogViewController: UIViewController {
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		let textview = UITextView()
+		textview.isEditable = false
+		textview.isSelectable = true
+		textview.textAlignment = NSTextAlignment.left
+		textview.translatesAutoresizingMaskIntoConstraints = true
+		view.addSubview(textview)
+	}
+}
+
+struct LogView: UIViewControllerRepresentable {
+	typealias UIViewControllerType = LogViewController
+
+    func makeUIViewController(context: Context) -> LogViewController {
+        LogViewController()
+    }
+
+    func updateUIViewController(_ uiViewController: LogViewController, context: Context) {
+       // Update the ViewController here
+    }
+}
+
 struct DirListView: View {
 	@State private var contents: [ContentItem] = []
-	@AppStorage("sortBy") var sortBy: SortOption = .name
 	@State private var searchText: String = ""
 	@State private var skipHiddenFiles: Bool = false
 	
@@ -32,6 +57,7 @@ struct DirListView: View {
 	
 	@State private var settingsCalled: Bool = false
 	@State private var newItemCalled: Bool = false
+	@State private var callFavourites: Bool = false
 	@State private var callActions: Bool = false
 	@State private var callCreateDialog: Bool = false
 	@State private var deleteConfirm: Bool = false
@@ -39,6 +65,8 @@ struct DirListView: View {
 	@State private var createType: Int = 0 // 1 = file, 2 = folder
 	@State private var targetCreate: String = ""
 	
+	@AppStorage("showHiddenFiles") var showHiddenFiles: Bool = true
+	@AppStorage("sortBy") var sortBy: SortOption = .name
 	@AppStorage("favourites") var favourites: [String] = []
 	
 	let folderURL: URL
@@ -54,14 +82,16 @@ struct DirListView: View {
 			List(filteredContents().sorted(by: sortBy.sortingComparator), id: \.id) { contentItem in
 				NavigationLink {
 					if contentItem.isFolder || contentItem.isSymbolicLink {
-						DirListView(folderURL: contentItem.url)
+						DirListView(folderURL: URL(fileURLWithPath: contentItem.realPath))
 					} else {
-						DirListItemActions(item: contentItem, isPresented: $callActions, contents: $contents)
+						Text("Hmm, this feature is not implemented.")
 					}
 				} label: {
 					makeListEntryLabel(item: contentItem)
 				}
+
 				.padding(.vertical, 6)
+
 				.swipeActions(allowsFullSwipe: true) {
 					Button {
 						if favourites.contains(contentItem.url.path) == false {
@@ -81,12 +111,14 @@ struct DirListView: View {
 					}
 					.tint(.indigo)
 					
-					Button(role: .destructive) {
+					Button {
 						deleteConfirm = true
 					} label: {
 						Label("Delete", systemImage: "trash")
 					}
+					.tint(.red)
 				}
+
 				// delete confirmation
 				.alert(isPresented: $deleteConfirm, content: {
 					Alert(
@@ -101,6 +133,7 @@ struct DirListView: View {
 						})
 					)
 				})
+
 				// actions
 				.sheet(isPresented: $callActions, content: {
 					DirListItemActions(item: contentItem, isPresented: $callActions, contents: $contents)
@@ -109,7 +142,7 @@ struct DirListView: View {
 			// navigation
 			.navigationBarTitle(folderURL.path)
 			.toolbar {
-				ToolbarItem(placement: .navigationBarTrailing) {
+				ToolbarItem(placement: .topBarTrailing) {
 					HStack {
 						Picker("", selection: $sortBy, content: {
 							ForEach(SortOption.allCases, id: \.self) { option in
@@ -117,24 +150,38 @@ struct DirListView: View {
 							}
 						})
 						.pickerStyle(MenuPickerStyle())
+						.labelStyle(.iconOnly)
 						
-						Button("Add", systemImage: "doc.badge.plus", action: { newItemCalled = true })
+						Button("", systemImage: "doc.badge.plus", action: { newItemCalled = true })
 							.labelStyle(.iconOnly)
 						
-						Button("Settings", systemImage: "gear", action: { settingsCalled = true })
+						Button("", systemImage: "gear", action: { settingsCalled = true })
 							.labelStyle(.iconOnly)
 					}
 				}
+
+				ToolbarItem(placement: .bottomBar) {
+					HStack {
+						Button("Queue", action: {}) // View not implemented
+						Button("Favourites", action: { callFavourites = true }) // View not implemented
+						Button("Refresh", action: { loadContents() })
+					}
+				}
 			}
+
 			// search bar
 			.searchable(text: $searchText, prompt: Text("Find for an item"))
-			// (re)load contents on show/reload
+
+			// (re)load contents on show
 			.onAppear {
 				loadContents()
 			}
-			.refreshable {
-				loadContents()
-			}
+
+			// Too buggy and even appears on sheets
+			// .refreshable {
+			// 	loadContents()
+			// }
+
 			// create file/folder sheets
 			.actionSheet(isPresented: $newItemCalled) {
 				ActionSheet(
@@ -146,6 +193,7 @@ struct DirListView: View {
 					]
 				)
 			}
+
 			// error alert
 			.alert(isPresented: $gotErrors, content: {
 				Alert(
@@ -157,15 +205,25 @@ struct DirListView: View {
 					}
 				)
 			})
+
 			// settings view
 			.sheet(isPresented: $settingsCalled, content: {
 				SettingsView(isPresented: $settingsCalled)
 			})
+
+			.sheet(isPresented: $callFavourites, content: {
+				List(favourites.sorted(by: sortBy.sortingComparatorStr), id:\.self) { favourite in
+					Text(favourite)
+				}
+			})
+
 		} else {
 			Text("An error occured!")
 				.font(.title2.bold())
 			Text(errorString)
 				.font(.title3)
+
+			LogView()
 		}
 	}
 	
@@ -179,35 +237,31 @@ struct DirListView: View {
 	}
 
 	private func loadContents() {
-		let fileManager = FileManager.default
-		do {
-			let urls = try fileManager.contentsOfDirectory(at: folderURL, includingPropertiesForKeys: [
-				.fileSizeKey, .contentModificationDateKey, .isSymbolicLinkKey, .isDirectoryKey], options: [.skipsHiddenFiles])
-			contents = urls.map { url in
-				let isDir = (try? url.resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory ?? false
-				let isSymLink = (try? url.resourceValues(forKeys: [.isSymbolicLinkKey]))?.isSymbolicLink ?? false
-				let fileSize = Int64((try? url.resourceValues(forKeys: [.fileSizeKey]))?.fileSize ?? 0)
-				let modificationDate = (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? Date()
-				
-				return ContentItem(url: url, isFolder: isDir, isSymbolicLink: isSymLink,
-								   fileSize: fileSize, modificationDate: modificationDate)
-			}
-		} catch {
-			errorString = error.localizedDescription
+		var items = contentsOfDirectory(folderURL.path)
+		if skipHiddenFiles {
+			items.removeAll { $0.hasPrefix(".") }
+		}
+		contents = items.map { item in
+			let url = URL(fileURLWithPath: folderURL.path + "/\(item)")
+			let isDir = (try? url.resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory ?? false
+			let isSymLink = (try? url.resourceValues(forKeys: [.isSymbolicLinkKey]))?.isSymbolicLink ?? false
+			let fileSize = Int64((try? url.resourceValues(forKeys: [.fileSizeKey]))?.fileSize ?? 0)
+			let modificationDate = (try? url.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? Date()
+			let realPath = url.resolvingSymlinksInPath().path
+			
+			return ContentItem(url: url, isFolder: isDir, isSymbolicLink: isSymLink,
+								fileSize: fileSize, modificationDate: modificationDate, realPath: realPath)
 		}
 	}
 	
 	private func deleteItem(at url: URL) {
-		let result: Int = RootHelper(["rm", "-rf", (url.path)])
-		if result != 0 {
-			if result == -1 {
-				errorString = "The device is not jailbroken!"
-			} else {
-				errorString = "Unable to remove: code \(result)"
+		do {
+			runCommand(Bundle.main.bundlePath + "/RootHelper", ["d", url.path], 0)
+			withAnimation {
+				contents.removeAll { $0.url == url }
 			}
-			gotErrors = true
-		} else {
-			contents.removeAll { $0.url == url }
+		} catch {
+			errorString = "Unable to remove: \(error.localizedDescription)"
 		}
 	}
 	
@@ -227,6 +281,7 @@ struct ContentItem: Identifiable {
     let isSymbolicLink: Bool
     let fileSize: Int64
     let modificationDate: Date
+	let realPath: String
 	
 	@AppStorage("useSize") var size: FileSizeOptions = .MegaByte
 	@AppStorage("allowNonNumbericSize") var nonNumbericSize: Bool = true
@@ -307,7 +362,6 @@ struct ContentView: View {
 	@AppStorage("queueCopy") var copyList: [String] = []
 	@AppStorage("queueCut") var cutList: [String] = []
 
-	
 	var body: some View {
 		List {
 			Text("Favourites").font(.title3.bold())
@@ -366,5 +420,6 @@ struct ContentView: View {
 			SettingsView(isPresented: $settingsCalled)
 				.navigationBarTitle("Settings")
 		}
+		.navigationViewStyle(StackNavigationViewStyle())
 	}
 }

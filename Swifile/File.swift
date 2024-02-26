@@ -1,20 +1,8 @@
 import Foundation
 
 func contentsOfDirectory(_ Path: String) -> [String] {
-    do {
-        // Random path to store contents JSON
-        let JSONPath = "\(NSHomeDirectory())/tmp/\(UUID().uuidString)"
-        // Write contents of directory JSON to JSONPath
-        RootHelper(["ls", Path, JSONPath])
-        // Read contents of JSONPath
-        let Contents: [String] = Array(rawValue: try String(contentsOfFile: JSONPath)) ?? []
-        // Remove JSONPath
-        try FileManager.default.removeItem(atPath: JSONPath)
-        return Contents
-    } catch {
-        print(error)
-        return []
-    }
+    let test = runHelper(["l", Path])
+    return (test.status != 0 || test.output == "") ? [] : test.output.components(separatedBy: "\n")
 }
 
 extension Array: RawRepresentable where Element: Codable {

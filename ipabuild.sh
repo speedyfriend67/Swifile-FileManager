@@ -11,12 +11,15 @@ rm -f $APP.tipa
 mkdir build
 mkdir Payload
 
+make -C "RootHelper (Pascal)"
+
 xcodebuild -project ./$APP.xcodeproj -scheme $APP -configuration $TARGET \
 	-derivedDataPath ./build/DerivedData -destination 'generic/platform=iOS' \
 	ONLY_ACTIVE_ARCH="NO" CODE_SIGNING_ALLOWED="NO"
 
 APP_PATH="./build/DerivedData/Build/Products/$TARGET-iphoneos/$APP.app"
 cp -r $APP_PATH ./build
+cp "RootHelper (Pascal)"/RootHelper ./build/$APP.app/RootHelper
 
 codesign --remove "./build/$APP.app"
 ldid -S"./Swifile/Swifile.entitlements" "./build/$APP.app/$APP"
