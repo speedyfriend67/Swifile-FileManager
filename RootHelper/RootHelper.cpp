@@ -2,10 +2,7 @@
 #include <cstdio>
 #include <fstream>
 #include <cstring>
-
-#ifndef _WIN32
-    #include <unistd.h>
-#endif
+#include <unistd.h>
 
 void sendOutThisMessage() {
     printf("Usage: RootHelper [action] [path]\n");
@@ -108,8 +105,6 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    // these are not available under Windows.
-    #ifndef _WIN32
     /* Gets UID */
     else if (checkArg(argv[1], "getuid", "guid"))
     {
@@ -121,7 +116,6 @@ int main(int argc, char* argv[]) {
     {
         printf("GID: %d", getgid());
     }
-    #endif
 
     else
     {
