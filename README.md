@@ -13,20 +13,14 @@ Swifile App provides a user-friendly interface to browse, search, and manage fil
 - Sort files by name, size, or modification date
 - Search files by name
 - Delete files and folders
-- Add file/folder to move/cut/copy queue just like Filza
-
-
+------------------------------------------------------
 - Planned future updates:
   - File sharing
   - File modifications
-  - Create new files and folders
+  - Uploading files
   - Recycling bin
   - Open files in external applications
   - Share files with other apps
-
-> Note: even basic features like deleting A FILE does NOT work for now, don't even think it will replace Filza soon. This is our first Swift+SwiftUI project, very buggy.
-
-> Filza, have to say, is still useful at things like multiple-tabs, terminal with root user logged in (required for setting root password in jailbreaks like palera1n, no root password set by default).
 
 ## Installation
 
@@ -38,11 +32,9 @@ Requires:
 
 Your phone: iOS 15+ with TrollStore.
 
-Firstly install FPC (Free Pascal Compiler) with Homebrew to make a cross compiler for iOS with the provided script from [this post](https://forum.lazarus.freepascal.org/index.php?topic=66249.0). Make it work with your mac (Xcode version, iOS SDK version etc). This project defaults uses FPC installed in ~/FPC, with its configuration file is ~/.fpccfg, made by samplecfg.
-
 Clone this repository. Run [ipabuild.sh](ipabuild.sh) and you will get a tipa after that.
 
-Send the file to your phone (probably on macOS just use AirDrop), install with TrollStore.
+Send the file to your phone (probably on macOS just use AirDrop), install with TrollStore(1 or 2).
 
 Or you can setup Theos and run:
 
@@ -64,9 +56,9 @@ Profit!
 
 Swifty by SparkleChan is a way to build, make, run Swift projects (and ObjC later).
 
-This app is originally made in Swifty!
+This app is originally made in Swifty(SparkCode) by SparkleChan!
 
-Currently as this was made to be a Xcode project, no support made for Swifty for now.
+Currently as this was made to be a Xcode project, no support made for Swifty(SparkCode) for now.
 
 Also with tests we confirmed that this project has problem building with Swifty, and seems the fault is the compiler: Swift. The latest on Procursus is 5.7.x. More tests required.
 
