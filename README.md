@@ -24,7 +24,7 @@ Swifile App provides a user-friendly interface to browse, search, and manage fil
 
 ## Installation
 
-Just obtain a release from either Releases page or lebao3105's repo: https://lebao3105.github.io/repo.
+Just obtain a release from either Releases page or lebao3105's repo: [https://lebao3105.github.io/repo](https://lebao3105.github.io/repo).
 
 Requires these to build from source:
 
@@ -60,11 +60,11 @@ Look at Theos documentation for useful environment variables and options (you wi
 
 Profit!
 
-### Use with Swifty
+### Use with SparkCode (Swifty)
 
-Swifty by SparkleChan is a way to build, make, run Swift projects (and ObjC later).
+SparkCode by SparkleChan is a way to build, make, run Swift projects (and ObjC later).
 
-This app is originally made in Swifty (SparkCode) by SparkleChan!
+This app is originally made in SparkCode (Swifty) by SparkleChan!
 
 Currently as this is not confirmed to work with SparkCode yet, as the new C++ helper came along with support for them in SparkCode, also new features.
 
@@ -90,7 +90,7 @@ Currently as this is not confirmed to work with SparkCode yet, as the new C++ he
 
 ## Author & Helpers
 
-Made by [speedyfriend67](https://github.com/speedyfriend67)
+Originally Made by [speedyfriend67](https://github.com/speedyfriend67)
 
 TIPA build script made with the help of [Geranium](https://github.com/c22dev/Geranium)
 
