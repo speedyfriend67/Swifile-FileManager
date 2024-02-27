@@ -9,8 +9,8 @@ export ARCHS
 XCODEPROJ_NAME = Swifile
 Swifile_CODESIGN_FLAGS = -SSwifile/Swifile.entitlements
 
-all::
+after-stage::
 	make -C RootHelper
-	cp RootHelper/RootHelper .theos/obj/debug/install_Swifile/Applications/Swifile.app/RootHelper
+	cp RootHelper/RootHelper $(THEOS_STAGING_DIR)/Applications/Swifile.app/RootHelper
 
 include $(THEOS_MAKE_PATH)/xcodeproj.mk

@@ -24,7 +24,9 @@ Swifile App provides a user-friendly interface to browse, search, and manage fil
 
 ## Installation
 
-Requires:
+Just obtain a release from either Releases page or lebao3105's repo: https://lebao3105.github.io/repo.
+
+Requires these to build from source:
 
 * macOS with recent Xcode installations
 * [HomeBrew](https://brew.sh)
@@ -34,7 +36,11 @@ Your phone: iOS 15+ with TrollStore.
 
 Clone this repository. Run [ipabuild.sh](ipabuild.sh) and you will get a tipa after that.
 
-Send the file to your phone (probably on macOS just use AirDrop), install with TrollStore.
+> Set the `SYSROOT` environment variable to your preferred SDK, `ARCHS` to either `arm64`, `arm64e` or both first!
+
+> IPA builds are not working (no root permission for the helper right now)
+
+Send the file to your phone (on macOS use AirDrop), install with TrollStore.
 
 Or you can setup Theos and run:
 
@@ -42,7 +48,7 @@ Or you can setup Theos and run:
 * `make do` to make a deb and install it onto your phone
 * `make` to build the project
 
-> The root helper by default will have both arm64 and arm64e Mach-O in it.
+> The root helper by default will have both arm64 and arm64e Mach-O in it. Modify the `ARCHS` variable as said above to change this.
 
 > You will need to setup root user password on your phone first.
 

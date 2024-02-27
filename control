@@ -3,7 +3,7 @@ Name: Swifile
 Version: 1.0
 Architecture: iphoneos-arm
 Description: A new file manager made with SwiftUI!
-Maintainer: Le Bao Nguyen <bao12345yocoo@gmail.com>
+Maintainer: Swifile development team
 Author: SpeedyFriend67
 Depends: firmware (>= 15.0)
 Section: Utilities
