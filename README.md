@@ -96,7 +96,7 @@ TIPA build script made with the help of [Geranium](https://github.com/c22dev/Ger
 
 Thanks to [AppinstalleriOS](https://github.com/AppInstalleriOSGH) and [lebao3105](https://github.com/lebao3105) for many great contributions!
 
-Thanks to TigiSoftware for their Filza - also ideas for this app!
+Thanks to [TigiSoftware](https://www.tigisoftware.com/default/) for their [Filza](https://www.tigisoftware.com/default/?page_id=78) - also ideas for this app!
 
 ## License
 
