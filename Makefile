@@ -3,6 +3,9 @@ TARGET = iphone:clang:15.5:15.0
 
 include $(THEOS)/makefiles/common.mk
 
+export SYSROOT
+export ARCHS
+
 XCODEPROJ_NAME = Swifile
 Swifile_CODESIGN_FLAGS = -SSwifile/Swifile.entitlements
 

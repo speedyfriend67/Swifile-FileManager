@@ -1,17 +1,10 @@
-FLAGS = -std=c++17
+FLAGS = -std=c++17 -isysroot$(SYSROOT) -o RootHelper
 LDID_FLAGS = -S../Swifile/Swifile.entitlements
 
-.PHONY: all firstnotes RootHelper
-all: firstnotes RootHelper
-
-firstnotes:
-	@echo
-	@echo "This is a C++ project which will be ran on iOS."
-	@echo "Get a cross compiler for AArch64 architecture for iOS."
-	@echo
-	@echo "You must override the CC variable in order to make this use your selected compiler."
-	@echo
+.PHONY: RootHelper
 
 RootHelper:
-	$(CC) $(FLAGS) RootHelper.cpp
+	$(foreach arch, $(subst \s, , $(ARCHS)), \
+		$(eval FLAGS += -arch $(arch)))
+	g++ RootHelper.cpp $(FLAGS)
 	ldid $(LDID_FLAGS) ./RootHelper

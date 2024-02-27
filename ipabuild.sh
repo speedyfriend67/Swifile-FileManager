@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 # Taken from Geranium's ipabuild!
 
@@ -11,7 +12,7 @@ rm -f $APP.tipa
 mkdir build
 mkdir Payload
 
-make -C "RootHelper (Pascal)"
+make -C RootHelper
 
 xcodebuild -project ./$APP.xcodeproj -scheme $APP -configuration $TARGET \
 	-derivedDataPath ./build/DerivedData -destination 'generic/platform=iOS' \
@@ -19,7 +20,7 @@ xcodebuild -project ./$APP.xcodeproj -scheme $APP -configuration $TARGET \
 
 APP_PATH="./build/DerivedData/Build/Products/$TARGET-iphoneos/$APP.app"
 cp -r $APP_PATH ./build
-cp "RootHelper (Pascal)"/RootHelper ./build/$APP.app/RootHelper
+cp RootHelper/RootHelper ./build/$APP.app/RootHelper
 
 codesign --remove "./build/$APP.app"
 ldid -S"./Swifile/Swifile.entitlements" "./build/$APP.app/$APP"
