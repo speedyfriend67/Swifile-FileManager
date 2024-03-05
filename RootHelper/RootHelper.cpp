@@ -8,7 +8,7 @@ void sendOutThisMessage() {
     printf("Usage: RootHelper [action] [path]\n");
     printf("Made by Le Bao Nguyen (@lebao3105 on GitHub and GitLab)\n");
     printf("Written in C++ and Pascal (2 different versions). Write once, run almost everywhere!\n");
-    printf("(This verison, in fact, mostly uses C things.)\n\n");
+    printf("(This C++ thing, in fact, mostly uses C things.)\n\n");
 
     printf("Available [action]s:\n");
     printf("del / d [path]                             : Deletes [path]\n");
@@ -17,14 +17,13 @@ void sendOutThisMessage() {
     printf("createdir / md [path]                      : Creates [path] as a directory\n");
     printf("move / mv [path, list must not be odd]     : Moves files and folders\n");
     printf("copy / cp [path, list must not be odd]     : Copies files and folders to another location\n");
-    #ifndef _WIN32
     printf("getuid / guid                              : Gets and shows the current UID\n");
     printf("getgid / gid                               : Gets and shows the current GID\n");
-    #endif
 
     printf("\n");
     printf("[path] can in any number of absolute paths that the program and system can handle.\n");
     printf("\n");
+    printf("Warning: NO confirmation message. No success/progress message. You've been warned.");
 }
 
 void isMod2Equal0(int argc) {
