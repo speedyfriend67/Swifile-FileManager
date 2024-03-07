@@ -1,5 +1,6 @@
 name: Install Theos
 uses: Randomblock1/theos-action@v1.3
+on: push
 jobs:
   echo:
     runs-on: ubuntu-latest
