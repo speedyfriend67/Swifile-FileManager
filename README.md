@@ -10,7 +10,7 @@ Swifile App provides a user-friendly interface to browse, search, and manage fil
 
 - Browse files and folders in a directory
 - Toggle file size visibility
-- Sort files by name, size, or modification date
+- Sort files by name, Alphabetical, size, or modification date
 - Search files by name
 - Delete files and folders
 ------------------------------------------------------
