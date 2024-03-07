@@ -27,7 +27,16 @@ jobs:
         uses: Randomblock1/theos-action@v1
         with:
           theos-src: 'https://github.com/roothide/theos'
-          theos-sdks: 'https://github.com/chrisharper22/sdks'
+
+      - name: Replace SDKs
+        run: |
+          rm -rf ${{ github.workspace }}/theos/sdks
+          wget --no-verbose https://github.com/chrisharper22/sdks/archive/refs/heads/main.zip
+          TMP=$(mktemp -d)
+          7z x main.zip -o$TMP
+          mkdir ${{ github.workspace }}/theos/sdks
+          mv $TMP/sdks/main/*.sdk ${{ github.workspace }}/theos/sdks
+          rm -rf main.zip $TMP
 
       - name: Build
         run: |
