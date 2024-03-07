@@ -35,7 +35,7 @@ jobs:
           TMP=$(mktemp -d)
           7z x main.zip -o$TMP
           mkdir ${{ github.workspace }}/theos/sdks
-          mv $TMP/sdks/main/*.sdk ${{ github.workspace }}/theos/sdks
+          mv $TMP/sdks-main/*.sdk ${{ github.workspace }}/theos/sdks
           rm -rf main.zip $TMP
 
       - name: Build
