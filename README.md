@@ -13,7 +13,7 @@ Swifile App provides a user-friendly interface to browse, search, and manage fil
 - Sort files by name, Alphabetical, size, or modification date
 - Search files by name
 - Delete files and folders
-------------------------------------------------------
+
 - Planned future updates:
   - File sharing
   - File modifications
@@ -28,7 +28,7 @@ Just obtain a release from either Releases page or lebao3105's repo: [https://le
 
 Requires these to build from source:
 
-* macOS with recent Xcode installations
+* macOS with recent Xcode installation
 * [HomeBrew](https://brew.sh)
 * [Theos](https://theos.dev)
 
