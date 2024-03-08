@@ -12,6 +12,8 @@ rm -f $APP.tipa
 mkdir build
 mkdir Payload
 
+echo "Set the ARCHS and SYSROOT variables before continuing!"
+
 make -C RootHelper
 
 xcodebuild -project ./$APP.xcodeproj -scheme $APP -configuration $TARGET \

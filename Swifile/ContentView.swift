@@ -177,7 +177,7 @@ struct DirListView: View {
 				loadContents()
 			}
 
-			// Too buggy and even appears on sheets
+			// Too buggy and even usable on sheets
 			// .refreshable {
 			// 	loadContents()
 			// }
@@ -255,13 +255,10 @@ struct DirListView: View {
 	}
 	
 	private func deleteItem(at url: URL) {
-		do {
-			runCommand(Bundle.main.bundlePath + "/RootHelper", ["d", url.path], 0)
-			withAnimation {
-				contents.removeAll { $0.url == url }
-			}
-		} catch {
-			errorString = "Unable to remove: \(error.localizedDescription)"
+		// TODO: Handle output
+		runCommand(Bundle.main.bundlePath + "/RootHelper", ["d", url.path], 0)
+		withAnimation {
+			contents.removeAll { $0.url == url }
 		}
 	}
 	
@@ -338,7 +335,6 @@ enum SortOption: String, CaseIterable, Identifiable {
 			return item1.fileSize > item2.fileSize
 		case .modificationDateLastFirst:
 			return item1.modificationDate > item2.modificationDate
-		
         }
     }
 	
