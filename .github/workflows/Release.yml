@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'v*'
+  pull-request:
   workflow_dispatch:
 
 jobs:
@@ -12,16 +13,6 @@ jobs:
     runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
-
-      - name: Check cache
-        run: |
-          echo upstream_heads=`git ls-remote https://github.com/chrisharper22/sdks | head -n 1 | cut -f 1`-`git ls-remote https://github.com/chrisharper22/sdks/ | head -n 1 | cut -f 1` >> $GITHUB_ENV
-
-      - name: Use cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ github.workspace }}/theos
-          key: ${{ runner.os }}-${{ env.upstream_heads }}
 
       - name: Prepare theos
         uses: Randomblock1/theos-action@v1
@@ -48,4 +39,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: "Swifile"
-          path: ${{ github.workspace }}/package/*.deb
+          path: ${{ github.workspace }}/packages/*.deb
