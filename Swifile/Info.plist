@@ -2,7 +2,68 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSUserNotificationAlertStyle</key>
-    <string>alert</string>
+    <!-- Bluetooth -->
+    <key>NSBluetoothAlwaysUsageDescription</key>
+    <string>Explain why the app needs access to Bluetooth (Name: Privacy — Bluetooth Always Usage Description)</string>
+    
+    <!-- Calendar and Reminders -->
+    <key>NSCalendarsFullAccessUsageDescription</key>
+    <string>Explain why the app needs read and write access to the user's calendar data (Name: Privacy — Calendars Full Access Usage Description)</string>
+    <key>NSCalendarsWriteOnlyAccessUsageDescription</key>
+    <string>Explain why the app needs write-only access to the user's calendar data (Name: Privacy — Calendars Write Only Usage Description)</string>
+    <key>NSRemindersFullAccessUsageDescription</key>
+    <string>Explain why the app needs read and write access to the user's reminders data (Name: Privacy — Reminders Full Access Usage Description)</string>
+    
+    <!-- Camera and Microphone -->
+    <key>NSCameraUsageDescription</key>
+    <string>Explain why the app needs access to the device's camera (Name: Privacy — Camera Usage Description)</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Explain why the app needs access to the device's microphone (Name: Privacy — Microphone Usage Description)</string>
+    
+    <!-- Contacts -->
+    <key>NSContactsUsageDescription</key>
+    <string>Explain why the app needs access to the user's contacts (Name: Privacy — Contacts Usage Description)</string>
+    
+    <!-- Face ID -->
+    <key>NSFaceIDUsageDescription</key>
+    <string>Explain why the app needs to use Face ID (Name: Privacy — Face ID Usage Description)</string>
+    
+    <!-- Files and Folders -->
+    <key>NSDesktopFolderUsageDescription</key>
+    <string>Explain why the app needs access to the user's desktop folder (Name: Privacy — Desktop Folder Usage Description)</string>
+    <key>NSDocumentsFolderUsageDescription</key>
+    <string>Explain why the app needs access to the user's documents folder (Name: Privacy — Documents Folder Usage Description)</string>
+    <key>NSDownloadsFolderUsageDescription</key>
+    <string>Explain why the app needs access to the user's downloads folder (Name: Privacy — Downloads Folder Usage Description)</string>
+    <key>NSNetworkVolumesUsageDescription</key>
+    <string>Explain why the app needs access to the user's network volumes (Name: Privacy — Network Volumes Usage Description)</string>
+    <key>NSRemovableVolumesUsageDescription</key>
+    <string>Explain why the app needs access to files on removable volumes (Name: Privacy — Removable Volumes Usage Description)</string>
+    <key>NSFileProviderDomainUsageDescription</key>
+    <string>Explain why the app needs access to files managed by a file provider (Name: Privacy — Access to a File Provider Domain Usage Description)</string>
+    
+    <!-- Game Center -->
+    <key>NSGKFriendListUsageDescription</key>
+    <string>Explain why the app needs access to the user's Game Center friend list</string>
+    
+    <!-- Health -->
+    <key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
+    <string>Explain why the app needs access to clinical health records (Name: Privacy — Health Records Usage Description)</string>
+    <key>NSHealthShareUsageDescription</key>
+    <string>Explain why the app requests permission to read samples from the HealthKit store (Name: Privacy — Health Share Usage Description)</string>
+    <key>NSHealthUpdateUsageDescription</key>
+    <string>Explain why the app requests permission to save samples to the HealthKit store (Name: Privacy — Health Update Usage Description)</string>
+    
+    <!-- HomeKit -->
+    <key>NSHomeKitUsageDescription</key>
+    <string>Explain why the app needs access to the user's HomeKit configuration data (Name: Privacy — HomeKit Usage Description)</string>
+    
+    <!-- Location -->
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Explain why the app needs access to the user's location information (Name: Privacy — Location Always and When In Use Usage Description)</string>
+    <key>NSLocationUsageDescription</key>
+    <string>Explain why the app needs access to the user's location information (Name: Privacy — Location Usage Description)</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Explain
 </dict>
 </plist>
