@@ -21,6 +21,7 @@ Swifile App provides a user-friendly interface to browse, search, and manage fil
   - Recycling bin
   - Open files in external applications
   - Share files with other apps
+  - **Class Dump** (Generate Objective-C headers from Mach-O files)
 
 ## Installation
 
