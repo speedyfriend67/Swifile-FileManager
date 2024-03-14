@@ -86,7 +86,8 @@ Currently as this is not confirmed to work with SparkCode yet, as the new C++ he
 
 ## Screenshots
 
-![IMG_8252](https://github.com/speedyfriend67/Swifile-FileManager/assets/82425907/12ca8c38-62b0-4ae7-8dac-fced9ea73251)
+![IMG_8261](https://github.com/speedyfriend67/Swifile-FileManager/assets/82425907/8d25a2e3-9e33-4476-9001-fee0cd7bd671)
+
 
 
 
