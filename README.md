@@ -101,6 +101,8 @@ Thanks to [AppinstalleriOS](https://github.com/AppInstalleriOSGH) and [lebao3105
 
 Thanks to [TigiSoftware](https://www.tigisoftware.com/default/) for their [Filza](https://www.tigisoftware.com/default/?page_id=78) - also ideas for this app!
 
+Thanks to [Dekotas](https://x.com/dekotastm?s=21) for [SparkCode](SparkCode - sileo://package/com.sparklechan.swifty - from http://dekotas.org/) Access
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
