@@ -25,7 +25,7 @@ Swifile App provides a user-friendly interface to browse, search, and manage fil
 
 ## Installation
 
-Just obtain a release from either Releases page or lebao3105's repo: [https://lebao3105.github.io/repo](https://lebao3105.github.io/repo).
+Just obtain a release from either Releases page or [ebao3105](https://github.com/lebao3105)'s repo: [https://lebao3105.github.io/repo](https://lebao3105.github.io/repo).
 
 Requires these to build from source:
 
