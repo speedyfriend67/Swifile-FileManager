@@ -4,7 +4,7 @@
 //
 //  Created by Nguyen Bao on 04/02/2024.
 //  Views originally made by SpeedyFriend67.
-//
+//  simpletoast when
 
 import SwiftUI
 import UIKit
