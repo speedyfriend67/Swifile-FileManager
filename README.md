@@ -1,6 +1,6 @@
 # Swifile
 
-Swifile App is a simple SwiftUI application for managing files and folders on your device.
+Swifile App is a simple SwiftUI application for managing files and folders on your device. 
 
 ## Overview
 
@@ -75,6 +75,7 @@ Currently as this is not confirmed to work with SparkCode yet, as the new C++ he
 - Use the search bar to search for files by name.
 - Tap on a folder to navigate into it and view its contents.
 - Swipe on any list cell to view its available options.
+- [![Make a new binary build](https://github.com/speedyfriend67/Swifile-FileManager/actions/workflows/Release.yml/badge.svg)](https://github.com/speedyfriend67/Swifile-FileManager/actions/workflows/Release.yml)
 
 ## Screenshots
 
