@@ -76,6 +76,7 @@ Currently as this is not confirmed to work with SparkCode yet, as the new C++ he
 - Tap on a folder to navigate into it and view its contents.
 - Swipe on any list cell to view its available options.
 - [![Make a new binary build](https://github.com/speedyfriend67/Swifile-FileManager/actions/workflows/Release.yml/badge.svg)](https://github.com/speedyfriend67/Swifile-FileManager/actions/workflows/Release.yml)
+- [![CodeQL](https://github.com/speedyfriend67/Swifile-FileManager/actions/workflows/codeql.yml/badge.svg)](https://github.com/speedyfriend67/Swifile-FileManager/actions/workflows/codeql.yml)
 
 ## Screenshots
 
