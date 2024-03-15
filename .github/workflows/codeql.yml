@@ -33,6 +33,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: Prepare theos
+      uses: Randomblock1/theos-action@v1.4
+      with:
+        theos-src: 'https://github.com/roothide/theos'
+        theos-sdks: 'https://github.com/chrisharper22/sdks'
+        theos-sdks-branch: 'main'
+
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
