@@ -6,8 +6,35 @@
 //
 //
 
+import UIKit
 import SwiftUI
 import Foundation
+
+class LogViewController: UIViewController {
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		let textview = UITextView()
+		textview.isEditable = false
+		textview.isSelectable = true
+		textview.textAlignment = NSTextAlignment.left
+		textview.translatesAutoresizingMaskIntoConstraints = true
+		view.addSubview(textview)
+	}
+}
+
+// read-only, show only once and no new update for the log inside
+struct LogView: UIViewControllerRepresentable {
+	typealias UIViewControllerType = LogViewController
+	let text: String
+
+    func makeUIViewController(context: Context) -> LogViewController {
+        LogViewController()
+    }
+
+    func updateUIViewController(_ uiViewController: LogViewController, context: Context) {
+       // Update the ViewController here
+    }
+}
 
 struct AboutPage: View {
 	// for developers/translators:

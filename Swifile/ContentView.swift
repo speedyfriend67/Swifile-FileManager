@@ -23,30 +23,6 @@ func makeTitleWithSecondary(_ mainTitle:String, _ secondaryTitle: String) -> som
 	}
 }
 
-class LogViewController: UIViewController {
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		let textview = UITextView()
-		textview.isEditable = false
-		textview.isSelectable = true
-		textview.textAlignment = NSTextAlignment.left
-		textview.translatesAutoresizingMaskIntoConstraints = true
-		view.addSubview(textview)
-	}
-}
-
-struct LogView: UIViewControllerRepresentable {
-	typealias UIViewControllerType = LogViewController
-
-    func makeUIViewController(context: Context) -> LogViewController {
-        LogViewController()
-    }
-
-    func updateUIViewController(_ uiViewController: LogViewController, context: Context) {
-       // Update the ViewController here
-    }
-}
-
 struct DirListView: View {
 	@State private var contents: [ContentItem] = []
 	@State private var searchText: String = ""
@@ -173,14 +149,7 @@ struct DirListView: View {
 			.searchable(text: $searchText, prompt: Text("Find for an item"))
 
 			// (re)load contents on show
-			.onAppear {
-				loadContents()
-			}
-
-			// Too buggy and even usable on sheets
-			// .refreshable {
-			// 	loadContents()
-			// }
+			.onAppear { loadContents() }
 
 			// create file/folder sheets
 			.actionSheet(isPresented: $newItemCalled) {
@@ -218,12 +187,11 @@ struct DirListView: View {
 			})
 
 		} else {
-			Text("An error occured!")
-				.font(.title2.bold())
-			Text(errorString)
-				.font(.title3)
+			Text("An error occured!").font(.title2.bold())
 
-			LogView()
+			Text(errorString).font(.title3)
+
+			LogView(text: errorString)
 		}
 	}
 	
@@ -256,9 +224,14 @@ struct DirListView: View {
 	
 	private func deleteItem(at url: URL) {
 		// TODO: Handle output
-		runCommand(Bundle.main.bundlePath + "/RootHelper", ["d", url.path], 0)
-		withAnimation {
-			contents.removeAll { $0.url == url }
+		let test = runHelper(["d", url.path])
+		if (test.status == 0) {
+			withAnimation {
+				contents.removeAll { $0.url == url }
+			}
+		} else {
+			errorString = test.output
+			gotErrors = true
 		}
 	}
 	
@@ -266,7 +239,20 @@ struct DirListView: View {
 		if searchText.isEmpty {
 			return contents
 		} else {
-			return contents.filter { $0.url.lastPathComponent.localizedCaseInsensitiveContains(searchText) }
+			var result: [ContentItem]
+			var text: String
+			var range: NSRange
+			let regex: NSRegularExpression = try! NSRegularExpression(pattern: searchText)
+
+			for item in contents {
+				text = item.url.lastPathComponent
+				range = NSRange(location: 0, length: text.utf16.count)
+				if regex.firstMatch(in: text, options: [], range: range) != nil {
+					result.append(newElement: item)
+				}
+			}
+
+			return result
 		}
 	}
 }
