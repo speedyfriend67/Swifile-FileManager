@@ -17,10 +17,9 @@ Swifile App provides a user-friendly interface to browse, search, and manage fil
 - Planned future updates:
   - File sharing
   - File modifications
-  - Uploading files
+  - Sharing files
   - Recycling bin
   - Open files in external applications
-  - Share files with other apps
   - **Class Dump** (Generate Objective-C headers from Mach-O files)
 
 ## Installation
@@ -65,9 +64,9 @@ Profit!
 
 SparkCode by SparkleChan is a way to build, make, run Swift projects (and ObjC later).
 
-This app is originally made in SparkCode (Swifty) by SparkleChan!
+This app is originally made in SparkCode by SparkleChan!
 
-Currently as this is not confirmed to work with SparkCode yet, as the new C++ helper came along with support for them in SparkCode, also new features.
+Currently as this is not confirmed to work with SparkCode yet, as the new C++ helper came along with support for them in SparkCode, also new features, also nobody try it yet (as far as we know).
 
 ## Usage
 
@@ -77,19 +76,11 @@ Currently as this is not confirmed to work with SparkCode yet, as the new C++ he
 - Tap on a folder to navigate into it and view its contents.
 - Swipe on any list cell to view its available options.
 
-## Future Updates
-
-- **File Sharing**: Share files with other apps or users.
-- **File Modifications**: Edit and modify files directly within the app.
-- **Uploading Files**: Upload files from external sources to the app.
-- **Recycling Bin**: Implement a recycling bin feature for deleted files.
-
 ## Screenshots
 
 ![IMG_8261](https://github.com/speedyfriend67/Swifile-FileManager/assets/82425907/8d25a2e3-9e33-4476-9001-fee0cd7bd671)
 
-
-
+More screenshots required.
 
 ## Author & Helpers
 
@@ -101,7 +92,7 @@ Thanks to [AppinstalleriOS](https://github.com/AppInstalleriOSGH) and [lebao3105
 
 Thanks to [TigiSoftware](https://www.tigisoftware.com/default/) for their [Filza](https://www.tigisoftware.com/default/?page_id=78) - also ideas for this app!
 
-Thanks to [Dekotas](https://x.com/dekotastm?s=21) for [SparkCode](https://chariz.com/get/sparkcode) Access
+Thanks to [Dekotas](https://x.com/dekotastm?s=21) for [SparkCode](https://chariz.com/get/sparkcode).
 
 ## License
 
