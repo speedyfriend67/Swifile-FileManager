@@ -84,6 +84,8 @@
     <string/>
     <key>CFBundleDocumentTypes</key>
     <array/>
+    <key>CFBundleExecutable</key>
+    <string>Swifile</string>
     <key>UISupportsDocumentBrowser</key>
     <true/>
     <key>LSSupportsOpeningDocumentsInPlace</key>
